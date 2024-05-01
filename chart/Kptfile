@@ -1,0 +1,11 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: external-secrets
+upstream:
+  type: git
+  git:
+    commit: 3d96be0d53817cde9e1c431b4b51550614e064df
+    repo: https://github.com/external-secrets/external-secrets
+    directory: /deploy/charts/external-secrets
+    ref: v0.9.15
