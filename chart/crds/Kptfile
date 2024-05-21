@@ -1,0 +1,11 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: custom_resources
+upstream:
+  type: git
+  git:
+    commit: 57521cd87ead96f0b1f550bc04f2edcb45b56071
+    repo: https://github.com/external-secrets/external-secrets
+    directory: /deploy/crds
+    ref: v0.9.15

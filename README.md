@@ -1,6 +1,6 @@
 # external-secrets
 
-![Version: 0.9.15-bb.1](https://img.shields.io/badge/Version-0.9.15--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.15-2](https://img.shields.io/badge/AppVersion-v0.9.15--2-informational?style=flat-square)
+![Version: 0.9.15-bb.2](https://img.shields.io/badge/Version-0.9.15--bb.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.15-2](https://img.shields.io/badge/AppVersion-v0.9.15--2-informational?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -40,18 +40,18 @@ helm install external-secrets chart/
 | global.topologySpreadConstraints | list | `[]` |  |
 | global.affinity | object | `{}` |  |
 | replicaCount | int | `1` |  |
-| revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
+| revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://bernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.tag | string | `"v0.9.15"` | The image tag to use. The default is the chart appVersion. |
 | image.flavour | string | `""` | The flavour of tag you want to use There are different image flavours available, like distroless and ubi. Please see GitHub release notes for image tags for these flavors. By default the distroless image is used. |
-| installCRDs | bool | `true` | If set, install and upgrade CRDs through helm chart. |
+| installCRDs | bool | `false` | If set, install and upgrade CRDs through helm chart. |
 | crds.createClusterExternalSecret | bool | `true` | If true, create CRDs for Cluster External Secret. |
 | crds.createClusterSecretStore | bool | `true` | If true, create CRDs for Cluster Secret Store. |
 | crds.createPushSecret | bool | `true` | If true, create CRDs for Push Secret. |
 | crds.annotations | object | `{}` |  |
 | crds.conversion.enabled | bool | `true` |  |
-| imagePullSecrets | list | `[]` |  |
+| imagePullSecrets[0].name | string | `"private-registry"` |  |
 | nameOverride | string | `""` |  |
 | fullnameOverride | string | `""` |  |
 | namespaceOverride | string | `""` |  |
@@ -122,7 +122,7 @@ helm install external-secrets chart/
 | webhook.image.pullPolicy | string | `"IfNotPresent"` |  |
 | webhook.image.tag | string | `"v0.9.15"` | The image tag to use. The default is the chart appVersion. |
 | webhook.image.flavour | string | `""` | The flavour of tag you want to use |
-| webhook.imagePullSecrets | list | `[]` |  |
+| webhook.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | webhook.nameOverride | string | `""` |  |
 | webhook.fullnameOverride | string | `""` |  |
 | webhook.port | int | `10250` | The port the webhook will listen to |
@@ -175,7 +175,7 @@ helm install external-secrets chart/
 | certController.image.pullPolicy | string | `"IfNotPresent"` |  |
 | certController.image.tag | string | `"v0.9.15"` |  |
 | certController.image.flavour | string | `""` |  |
-| certController.imagePullSecrets | list | `[]` |  |
+| certController.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | certController.nameOverride | string | `""` |  |
 | certController.fullnameOverride | string | `""` |  |
 | certController.rbac.create | bool | `true` | Specifies whether role and rolebinding resources should be created. |

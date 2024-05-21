@@ -6,7 +6,7 @@ global:
 
 replicaCount: 1
 
-# -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
+# -- Specifies the amount of historic ReplicaSets k8s should keep (see https://bernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
 revisionHistoryLimit: 10
 
 image:
@@ -21,7 +21,7 @@ image:
   flavour: ""
 
 # -- If set, install and upgrade CRDs through helm chart.
-installCRDs: true
+installCRDs: false
 
 crds:
   # -- If true, create CRDs for Cluster External Secret.
@@ -34,7 +34,8 @@ crds:
   conversion:
     enabled: true
 
-imagePullSecrets: []
+imagePullSecrets:
+- name: private-registry
 nameOverride: ""
 fullnameOverride: ""
 namespaceOverride: ""
@@ -243,7 +244,8 @@ webhook:
     tag: "v0.9.15"
     # -- The flavour of tag you want to use
     flavour: ""
-  imagePullSecrets: []
+  imagePullSecrets:
+  - name: private-registry
   nameOverride: ""
   fullnameOverride: ""
   # -- The port the webhook will listen to
@@ -394,7 +396,8 @@ certController:
     pullPolicy: IfNotPresent
     tag: "v0.9.15"
     flavour: ""
-  imagePullSecrets: []
+  imagePullSecrets:
+  - name: private-registry
   nameOverride: ""
   fullnameOverride: ""
   rbac:
