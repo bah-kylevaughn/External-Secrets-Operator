@@ -5,7 +5,7 @@ metadata:
 upstream:
   type: git
   git:
-    commit: 57521cd87ead96f0b1f550bc04f2edcb45b56071
+    commit: b8f27d6b0a35ff0b6b8a1772799364e271bcd294
     repo: https://github.com/external-secrets/external-secrets
     directory: /deploy/crds
-    ref: v0.9.15
+    ref: helm-chart-0.9.18

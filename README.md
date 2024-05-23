@@ -1,6 +1,6 @@
 # external-secrets
 
-![Version: 0.9.16-bb.0](https://img.shields.io/badge/Version-0.9.16--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.16](https://img.shields.io/badge/AppVersion-v0.9.16-informational?style=flat-square)
+![Version: 0.9.18-bb.0](https://img.shields.io/badge/Version-0.9.18--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.18](https://img.shields.io/badge/AppVersion-v0.9.18-informational?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -39,11 +39,12 @@ helm install external-secrets chart/
 | global.tolerations | list | `[]` |  |
 | global.topologySpreadConstraints | list | `[]` |  |
 | global.affinity | object | `{}` |  |
+| global.compatibility.openshift.adaptSecurityContext | string | `"auto"` | Manages the securityContext properties to make them compatible with OpenShift. Possible values: auto - Apply configurations if it is detected that OpenShift is the target platform. force - Always apply configurations. disabled - No modification applied. |
 | replicaCount | int | `1` |  |
 | revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://bernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.tag | string | `"v0.9.16"` | The image tag to use. The default is the chart appVersion. |
+| image.tag | string | `"v0.9.18"` | The image tag to use. The default is the chart appVersion. |
 | image.flavour | string | `""` | The flavour of tag you want to use There are different image flavours available, like distroless and ubi. Please see GitHub release notes for image tags for these flavors. By default the distroless image is used. |
 | installCRDs | bool | `false` | If set, install and upgrade CRDs through helm chart. |
 | crds.createClusterExternalSecret | bool | `true` | If true, create CRDs for Cluster External Secret. |
@@ -78,14 +79,16 @@ helm install external-secrets chart/
 | extraEnv | list | `[]` |  |
 | extraArgs | object | `{}` |  |
 | extraVolumes | list | `[]` |  |
+| extraObjects | list | `[]` |  |
 | extraVolumeMounts | list | `[]` |  |
 | extraContainers | list | `[]` |  |
 | deploymentAnnotations | object | `{}` | Annotations to add to Deployment |
 | podAnnotations | object | `{}` | Annotations to add to Pod |
 | podLabels | object | `{}` |  |
-| podSecurityContext | object | `{}` |  |
+| podSecurityContext.enabled | bool | `true` |  |
 | securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | securityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| securityContext.enabled | bool | `true` |  |
 | securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | securityContext.runAsNonRoot | bool | `true` |  |
 | securityContext.runAsUser | int | `1000` |  |
@@ -120,7 +123,7 @@ helm install external-secrets chart/
 | webhook.hostNetwork | bool | `false` | Specifies if webhook pod should use hostNetwork or not. |
 | webhook.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | webhook.image.pullPolicy | string | `"IfNotPresent"` |  |
-| webhook.image.tag | string | `"v0.9.16"` | The image tag to use. The default is the chart appVersion. |
+| webhook.image.tag | string | `"v0.9.18"` | The image tag to use. The default is the chart appVersion. |
 | webhook.image.flavour | string | `""` | The flavour of tag you want to use |
 | webhook.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | webhook.nameOverride | string | `""` |  |
@@ -159,9 +162,10 @@ helm install external-secrets chart/
 | webhook.deploymentAnnotations | object | `{}` | Annotations to add to Deployment |
 | webhook.podAnnotations | object | `{}` | Annotations to add to Pod |
 | webhook.podLabels | object | `{}` |  |
-| webhook.podSecurityContext | object | `{}` |  |
+| webhook.podSecurityContext.enabled | bool | `true` |  |
 | webhook.securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | webhook.securityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| webhook.securityContext.enabled | bool | `true` |  |
 | webhook.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | webhook.securityContext.runAsNonRoot | bool | `true` |  |
 | webhook.securityContext.runAsUser | int | `1000` |  |
@@ -173,7 +177,7 @@ helm install external-secrets chart/
 | certController.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | certController.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | certController.image.pullPolicy | string | `"IfNotPresent"` |  |
-| certController.image.tag | string | `"v0.9.16"` |  |
+| certController.image.tag | string | `"v0.9.18"` |  |
 | certController.image.flavour | string | `""` |  |
 | certController.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | certController.nameOverride | string | `""` |  |
@@ -204,14 +208,16 @@ helm install external-secrets chart/
 | certController.deploymentAnnotations | object | `{}` | Annotations to add to Deployment |
 | certController.podAnnotations | object | `{}` | Annotations to add to Pod |
 | certController.podLabels | object | `{}` |  |
-| certController.podSecurityContext | object | `{}` |  |
+| certController.podSecurityContext.enabled | bool | `true` |  |
 | certController.securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | certController.securityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| certController.securityContext.enabled | bool | `true` |  |
 | certController.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | certController.securityContext.runAsNonRoot | bool | `true` |  |
 | certController.securityContext.runAsUser | int | `1000` |  |
 | certController.securityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
 | certController.resources | object | `{}` |  |
+| dnsPolicy | string | `"ClusterFirst"` | Specifies `dnsPolicy` to deployment |
 | dnsConfig | object | `{}` | Specifies `dnsOptions` to deployment |
 | podSpecExtra | object | `{}` | Any extra pod spec on the deployment |
 
