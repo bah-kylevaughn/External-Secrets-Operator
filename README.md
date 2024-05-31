@@ -1,6 +1,6 @@
 # external-secrets
 
-![Version: 0.9.18-bb.0](https://img.shields.io/badge/Version-0.9.18--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.18](https://img.shields.io/badge/AppVersion-v0.9.18-informational?style=flat-square)
+![Version: 0.9.18-bb.1](https://img.shields.io/badge/Version-0.9.18--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.18](https://img.shields.io/badge/AppVersion-v0.9.18-informational?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -93,7 +93,10 @@ helm install external-secrets chart/
 | securityContext.runAsNonRoot | bool | `true` |  |
 | securityContext.runAsUser | int | `1000` |  |
 | securityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
-| resources | object | `{}` |  |
+| resources.requests.memory | string | `"256Mi"` |  |
+| resources.requests.cpu | string | `"100m"` |  |
+| resources.limits.cpu | string | `"100m"` |  |
+| resources.limits.memory | string | `"256Mi"` |  |
 | serviceMonitor.enabled | bool | `false` | Specifies whether to create a ServiceMonitor resource for collecting Prometheus metrics |
 | serviceMonitor.namespace | string | `""` | namespace where you want to install ServiceMonitors |
 | serviceMonitor.additionalLabels | object | `{}` | Additional labels |
@@ -170,7 +173,10 @@ helm install external-secrets chart/
 | webhook.securityContext.runAsNonRoot | bool | `true` |  |
 | webhook.securityContext.runAsUser | int | `1000` |  |
 | webhook.securityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
-| webhook.resources | object | `{}` |  |
+| webhook.resources.requests.memory | string | `"256Mi"` |  |
+| webhook.resources.requests.cpu | string | `"100m"` |  |
+| webhook.resources.limits.cpu | string | `"100m"` |  |
+| webhook.resources.limits.memory | string | `"256Mi"` |  |
 | certController.create | bool | `true` | Specifies whether a certificate controller deployment be created. |
 | certController.requeueInterval | string | `"5m"` |  |
 | certController.replicaCount | int | `1` |  |
@@ -216,7 +222,10 @@ helm install external-secrets chart/
 | certController.securityContext.runAsNonRoot | bool | `true` |  |
 | certController.securityContext.runAsUser | int | `1000` |  |
 | certController.securityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
-| certController.resources | object | `{}` |  |
+| certController.resources.requests.memory | string | `"256Mi"` |  |
+| certController.resources.requests.cpu | string | `"100m"` |  |
+| certController.resources.limits.cpu | string | `"100m"` |  |
+| certController.resources.limits.memory | string | `"256Mi"` |  |
 | dnsPolicy | string | `"ClusterFirst"` | Specifies `dnsPolicy` to deployment |
 | dnsConfig | object | `{}` | Specifies `dnsOptions` to deployment |
 | podSpecExtra | object | `{}` | Any extra pod spec on the deployment |

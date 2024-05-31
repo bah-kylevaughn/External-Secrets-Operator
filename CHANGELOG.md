@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+
+## [0.9.18-bb.1] - 2024-05-28
+### Added
+- Add Resource values for every pod to set Guaranteed QoS
+
 ## [0.9.18-bb.0] - 2024-05-15
 ### Changed
 - update "custom_resources" (https://github.com/external-secrets/external-secrets) from "v0.9.15" (57521cd87ead96f0b1f550bc04f2edcb45b56071) to "helm-chart-0.9.18" (b8f27d6b0a35ff0b6b8a1772799364e271bcd294)
