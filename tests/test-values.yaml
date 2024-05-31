@@ -1,0 +1,35 @@
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    cpu: 100m
+    memory: 256Mi
+
+webhook:
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      cpu: 100m
+      memory: 256Mi
+
+certController:
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      cpu: 100m
+      memory: 256Mi
+
+istio:
+  enabled: true
+
+networkPolicies:
+  enabled: true
+  controlPlaneCidr: 172.16.0.0/12
+
+bbtests:
+  enabled: true

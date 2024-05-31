@@ -159,10 +159,13 @@ securityContext:
   seccompProfile:
     type: RuntimeDefault
 
-resources: {}
-  # requests:
-  #   cpu: 10m
-  #   memory: 32Mi
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+  limits:
+    cpu: 100m
+    memory: 256Mi
 
 serviceMonitor:
   # -- Specifies whether to create a ServiceMonitor resource for collecting Prometheus metrics
@@ -395,10 +398,13 @@ webhook:
     seccompProfile:
       type: RuntimeDefault
 
-  resources: {}
-      # requests:
-      #   cpu: 10m
-      #   memory: 32Mi
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      cpu: 100m
+      memory: 256Mi
 
 certController:
   # -- Specifies whether a certificate controller deployment be created.
@@ -511,10 +517,13 @@ certController:
     seccompProfile:
       type: RuntimeDefault
 
-  resources: {}
-      # requests:
-      #   cpu: 10m
-      #   memory: 32Mi
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      cpu: 100m
+      memory: 256Mi
 
 # -- Specifies `dnsPolicy` to deployment
 dnsPolicy: ClusterFirst
