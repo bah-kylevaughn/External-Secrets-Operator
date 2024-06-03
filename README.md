@@ -1,6 +1,6 @@
 # external-secrets
 
-![Version: 0.9.18-bb.1](https://img.shields.io/badge/Version-0.9.18--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.18](https://img.shields.io/badge/AppVersion-v0.9.18-informational?style=flat-square)
+![Version: 0.9.18-bb.2](https://img.shields.io/badge/Version-0.9.18--bb.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.18-0](https://img.shields.io/badge/AppVersion-v0.9.18--0-informational?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -35,6 +35,7 @@ helm install external-secrets chart/
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| openshift | bool | `false` |  |
 | global.nodeSelector | object | `{}` |  |
 | global.tolerations | list | `[]` |  |
 | global.topologySpreadConstraints | list | `[]` |  |
@@ -229,6 +230,31 @@ helm install external-secrets chart/
 | dnsPolicy | string | `"ClusterFirst"` | Specifies `dnsPolicy` to deployment |
 | dnsConfig | object | `{}` | Specifies `dnsOptions` to deployment |
 | podSpecExtra | object | `{}` | Any extra pod spec on the deployment |
+| domain | string | `"bigbang.dev"` |  |
+| istio.enabled | bool | `false` |  |
+| istio.hardened.enabled | bool | `false` |  |
+| istio.hardened.customAuthorizationPolicies | list | `[]` |  |
+| istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
+| istio.injection | string | `"disabled"` |  |
+| networkPolicies.enabled | bool | `false` |  |
+| networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
+| networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
+| networkPolicies.additionalPolicies | list | `[]` |  |
+| bbtests.enabled | bool | `false` |  |
+| bbtests.namespace | string | `"external-secrets"` |  |
+| bbtests.secretstore.name | string | `"external-secrets-test-store"` |  |
+| bbtests.serviceaccount.name | string | `"external-secrets-test"` |  |
+| bbtests.rolebinding.name | string | `"external-secrets-test-read-secrets"` |  |
+| bbtests.role.name | string | `"external-secrets-reader"` |  |
+| bbtests.role.rules[0].apiGroups[0] | string | `""` |  |
+| bbtests.role.rules[0].resources[0] | string | `"secrets"` |  |
+| bbtests.role.rules[0].verbs[0] | string | `"get"` |  |
+| bbtests.role.rules[0].verbs[1] | string | `"watch"` |  |
+| bbtests.role.rules[0].verbs[2] | string | `"list"` |  |
+| bbtests.role.rules[1].apiGroups[0] | string | `""` |  |
+| bbtests.role.rules[1].resources[0] | string | `"SelfSubjectRulesReview"` |  |
+| bbtests.role.rules[1].verbs[0] | string | `"create"` |  |
+| bbtests.secrets.testsecret.value | string | `"this is a magic value"` |  |
 
 ## Contributing
 

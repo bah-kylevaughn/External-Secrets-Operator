@@ -1,0 +1,11 @@
+{{- if .Values.bbtests.enabled -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Values.bbtests.namespace }}
+  name: {{ .Values.bbtests.role.name }}
+rules:
+{{- range .Values.bbtests.role.rules }}
+- {{ . | toYaml | indent 2 | trim }}
+{{- end -}}
+{{- end -}}

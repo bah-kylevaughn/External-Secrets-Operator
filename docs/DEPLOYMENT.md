@@ -9,6 +9,9 @@ packages:
     git:
       repo: https://repo1.dso.mil/big-bang/apps/sandbox/external-secrets.git
       path: chart
+    values:
+      tests:
+        enabled: true
 ```
 
 ... and you can deploy it normally, as part of the bigbang umbrella chart:
@@ -21,4 +24,28 @@ bbctl deploy bigbang -- -f externalsecrets.yaml
 
 ```
 helm upgrade -i --wait external-secrets chart/ -n external-secrets
+```
+
+# Helm tests
+
+If you want to run helm tests against your deployment, you will need to deploy with bbtests enabled:
+
+```
+packages:
+  external-secrets:
+    values:
+      bbtests:
+        enabled: true
+```
+
+You can do this by performing a helm upgrade with the test values file:
+
+```
+$ helm upgrade external-secrets chart -i --wait --timeout 600s  -f {YOUR_OVERRIDE_FILE} -f tests/test-values.yaml
+```
+
+This will create a skeleton secret store that is sufficient to prove that ESO is working. Then you can execute the helm tests:
+
+```
+$ helm test external-secrets -n external-secrets
 ```
