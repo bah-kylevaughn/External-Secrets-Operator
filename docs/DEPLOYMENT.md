@@ -10,7 +10,7 @@ packages:
       repo: https://repo1.dso.mil/big-bang/apps/sandbox/external-secrets.git
       path: chart
     values:
-      tests:
+      bbtests:
         enabled: true
 ```
 
@@ -36,12 +36,6 @@ packages:
     values:
       bbtests:
         enabled: true
-```
-
-You can do this by performing a helm upgrade with the test values file:
-
-```
-$ helm upgrade external-secrets chart -i --wait --timeout 600s  -f {YOUR_OVERRIDE_FILE} -f tests/test-values.yaml
 ```
 
 This will create a skeleton secret store that is sufficient to prove that ESO is working. Then you can execute the helm tests:
