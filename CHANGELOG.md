@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.9.18-bb.3] - 2024-06-05
+### Changed
+- Corrected an issue in the deployment documentation
+
 ## [0.9.18-bb.2] - 2024-06-02
 ### Added
 - Added helm test to validate that the external secrets operator is functional
