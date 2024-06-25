@@ -3,14 +3,16 @@ kind: Pod
 metadata:
   name: "external-secrets-test-secret-mount"
   namespace: external-secrets
+  labels:
+    sidecar.istio.io/inject: 'false' 
   annotations:
     "helm.sh/hook": test
 spec:
   containers:
     - name: external-secrets-test-secret-mount
-      image: busybox
-      command: ["/bin/grep"]
-      args: ["{{ .Values.bbtests.secrets.testsecret.value }}", "/tmp/externalsecrets/secretkey"]
+      image: busybox 
+      command: ["/bin/grep"]       
+      args: ["{{ .Values.bbtests.secrets.testsecret.value }}", "/tmp/externalsecrets/secretkey"] 
       volumeMounts:
         - mountPath: /tmp/externalsecrets
           name: externalsecrets
