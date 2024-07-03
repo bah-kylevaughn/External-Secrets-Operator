@@ -8,9 +8,19 @@ metadata:
   annotations:
     "helm.sh/hook": test
 spec:
+  securityContext:
+    runAsUser: 1001
+    runAsGroup: 1001
+    runAsNonRoot: true
+  imagePullSecrets:
+  - name: private-registry
   containers:
     - name: external-secrets-test-secret-mount
-      image: busybox 
+      image: "registry1.dso.mil/ironbank/redhat/ubi/ubi9-minimal:9.3"
+      securityContext:
+        capabilities:
+          drop:
+            - ALL
       command: ["/bin/grep"]       
       args: ["{{ .Values.bbtests.secrets.testsecret.value }}", "/tmp/externalsecrets/secretkey"] 
       volumeMounts:
