@@ -38,3 +38,21 @@ When in doubt with any testing or upgrade steps ask one of the CODEOWNERS for as
 # Big Bang Chart Additions
 
 This chart has no Big Bang specific additions at this time.
+
+# Files that need integration testing
+
+If you modify any of these things, you should perform an integration test with your branch against the rest of bigbang. Some of these files have automatic tests already defined, but those automatic tests may not model corner cases found in full integration scenarios.
+
+* `./chart/crds/`
+* `./chart/templates/bigbang/*`
+* `./chart/templates/rbac.yaml`
+* `./chart/templates/webhook*`
+* `./chart/values.yaml` if it involves any of:
+  * monitoring changes
+  * network policy changes
+  * kyverno policy changes
+  * istio hardening rule changes
+  * service definition changes
+  * TLS settings
+
+Follow [the standard process](https://repo1.dso.mil/big-bang/bigbang/-/blob/master/docs/developer/test-package-against-bb.md?ref_type=heads) for performing an integration test against bigbang.
