@@ -1,6 +1,6 @@
 # external-secrets
 
-![Version: 0.9.18-bb.7](https://img.shields.io/badge/Version-0.9.18--bb.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.18-0](https://img.shields.io/badge/AppVersion-v0.9.18--0-informational?style=flat-square)
+![Version: 0.9.18-bb.8](https://img.shields.io/badge/Version-0.9.18--bb.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.18-0](https://img.shields.io/badge/AppVersion-v0.9.18--0-informational?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -93,6 +93,7 @@ helm install external-secrets chart/
 | securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | securityContext.runAsNonRoot | bool | `true` |  |
 | securityContext.runAsUser | int | `1000` |  |
+| securityContext.runAsGroup | int | `1000` |  |
 | securityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
 | resources.requests.memory | string | `"256Mi"` |  |
 | resources.requests.cpu | string | `"100m"` |  |
@@ -173,6 +174,7 @@ helm install external-secrets chart/
 | webhook.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | webhook.securityContext.runAsNonRoot | bool | `true` |  |
 | webhook.securityContext.runAsUser | int | `1000` |  |
+| webhook.securityContext.runAsGroup | int | `1000` |  |
 | webhook.securityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
 | webhook.resources.requests.memory | string | `"256Mi"` |  |
 | webhook.resources.requests.cpu | string | `"100m"` |  |
@@ -222,6 +224,7 @@ helm install external-secrets chart/
 | certController.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | certController.securityContext.runAsNonRoot | bool | `true` |  |
 | certController.securityContext.runAsUser | int | `1000` |  |
+| certController.securityContext.runAsGroup | int | `1000` |  |
 | certController.securityContext.seccompProfile.type | string | `"RuntimeDefault"` |  |
 | certController.resources.requests.memory | string | `"256Mi"` |  |
 | certController.resources.requests.cpu | string | `"100m"` |  |
@@ -233,6 +236,8 @@ helm install external-secrets chart/
 | domain | string | `"bigbang.dev"` |  |
 | istio.enabled | bool | `false` |  |
 | istio.hardened.enabled | bool | `false` |  |
+| istio.hardened.outboundTrafficPolicyMode | string | `"REGISTRY_ONLY"` |  |
+| istio.hardened.customServiceEntries | list | `[]` |  |
 | istio.hardened.customAuthorizationPolicies | list | `[]` |  |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
 | istio.injection | string | `"disabled"` |  |
