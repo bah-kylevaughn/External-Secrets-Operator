@@ -17,18 +17,21 @@ global:
 
 replicaCount: 1
 
-# -- Specifies the amount of historic ReplicaSets k8s should keep (see https://bernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
+bitwarden-sdk-server:
+  enabled: false
+
+# -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
 revisionHistoryLimit: 10
 
 image:
   repository: registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets
   pullPolicy: IfNotPresent
   # -- The image tag to use. The default is the chart appVersion.
-  tag: "v0.9.18"
+  tag: "v0.9.20"
   # -- The flavour of tag you want to use
   # There are different image flavours available, like distroless and ubi.
   # Please see GitHub release notes for image tags for these flavors.
-  # By default the distroless image is used.
+  # By default, the distroless image is used.
   flavour: ""
 
 # -- If set, install and upgrade CRDs through helm chart.
@@ -89,7 +92,10 @@ createOperator: true
 # -- Specifies the number of concurrent ExternalSecret Reconciles external-secret executes at
 # a time.
 concurrent: 1
-
+# -- Specifices Log Params to the Webhook
+log:
+  level: info
+  timeEncoding: epoch
 service:
   # -- Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services)
   ipFamilyPolicy: ""
@@ -248,7 +254,10 @@ webhook:
   # -- Specifices the lookaheadInterval for certificate validity
   lookaheadInterval: ""
   replicaCount: 1
-
+  # -- Specifices Log Params to the Webhook
+  log:
+    level: info
+    timeEncoding: epoch
   # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
   revisionHistoryLimit: 10
 
@@ -261,7 +270,7 @@ webhook:
     repository: registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets
     pullPolicy: IfNotPresent
     # -- The image tag to use. The default is the chart appVersion.
-    tag: "v0.9.18"
+    tag: "v0.9.20"
     # -- The flavour of tag you want to use
     flavour: ""
   imagePullSecrets:
@@ -413,14 +422,17 @@ certController:
   create: true
   requeueInterval: "5m"
   replicaCount: 1
-
+  # -- Specifices Log Params to the Webhook
+  log:
+    level: info
+    timeEncoding: epoch
   # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
   revisionHistoryLimit: 10
 
   image:
     repository: registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets
     pullPolicy: IfNotPresent
-    tag: "v0.9.18"
+    tag: "v0.9.20"
     flavour: ""
   imagePullSecrets:
   - name: private-registry
