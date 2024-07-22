@@ -1,6 +1,6 @@
 # external-secrets
 
-![Version: 0.9.18-bb.8](https://img.shields.io/badge/Version-0.9.18--bb.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.18-0](https://img.shields.io/badge/AppVersion-v0.9.18--0-informational?style=flat-square)
+![Version: 0.9.20-bb.0](https://img.shields.io/badge/Version-0.9.20--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.20](https://img.shields.io/badge/AppVersion-v0.9.20-informational?style=flat-square)
 
 External secret management for Kubernetes
 
