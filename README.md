@@ -1,11 +1,23 @@
+<!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # external-secrets
 
-![Version: 0.9.20-bb.0](https://img.shields.io/badge/Version-0.9.20--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.20](https://img.shields.io/badge/AppVersion-v0.9.20-informational?style=flat-square)
+![Version: 0.9.20-bb.1](https://img.shields.io/badge/Version-0.9.20--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.9.20](https://img.shields.io/badge/AppVersion-v0.9.20-informational?style=flat-square)
 
 External secret management for Kubernetes
 
 ## Upstream References
 * <https://github.com/external-secrets/external-secrets>
+
+### Upstream Release Notes
+
+This package has no upstream release note links on file. Please add some to [chart/Chart.yaml](chart/Chart.yaml) under `annotations.bigbang.dev/upstreamReleaseNotesMarkdown`.
+Example:
+```yaml
+annotations:
+  bigbang.dev/upstreamReleaseNotesMarkdown: |
+    - [Find our upstream chart's CHANGELOG here](https://link-goes-here/CHANGELOG.md)
+    - [and our upstream application release notes here](https://another-link-here/RELEASE_NOTES.md)
+```
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -42,11 +54,12 @@ helm install external-secrets chart/
 | global.affinity | object | `{}` |  |
 | global.compatibility.openshift.adaptSecurityContext | string | `"auto"` | Manages the securityContext properties to make them compatible with OpenShift. Possible values: auto - Apply configurations if it is detected that OpenShift is the target platform. force - Always apply configurations. disabled - No modification applied. |
 | replicaCount | int | `1` |  |
-| revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://bernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
+| bitwarden-sdk-server.enabled | bool | `false` |  |
+| revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.tag | string | `"v0.9.18"` | The image tag to use. The default is the chart appVersion. |
-| image.flavour | string | `""` | The flavour of tag you want to use There are different image flavours available, like distroless and ubi. Please see GitHub release notes for image tags for these flavors. By default the distroless image is used. |
+| image.tag | string | `"v0.9.20"` | The image tag to use. The default is the chart appVersion. |
+| image.flavour | string | `""` | The flavour of tag you want to use There are different image flavours available, like distroless and ubi. Please see GitHub release notes for image tags for these flavors. By default, the distroless image is used. |
 | installCRDs | bool | `false` | If set, install and upgrade CRDs through helm chart. |
 | crds.createClusterExternalSecret | bool | `true` | If true, create CRDs for Cluster External Secret. |
 | crds.createClusterSecretStore | bool | `true` | If true, create CRDs for Cluster Secret Store. |
@@ -68,6 +81,7 @@ helm install external-secrets chart/
 | processPushSecret | bool | `true` | if true, the operator will process push secret. Else, it will ignore them. |
 | createOperator | bool | `true` | Specifies whether an external secret operator deployment be created. |
 | concurrent | int | `1` | Specifies the number of concurrent ExternalSecret Reconciles external-secret executes at a time. |
+| log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
 | service.ipFamilyPolicy | string | `""` | Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services) |
 | service.ipFamilies | list | `[]` | Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6. |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created. |
@@ -122,13 +136,14 @@ helm install external-secrets chart/
 | webhook.certCheckInterval | string | `"5m"` | Specifices the time to check if the cert is valid |
 | webhook.lookaheadInterval | string | `""` | Specifices the lookaheadInterval for certificate validity |
 | webhook.replicaCount | int | `1` |  |
+| webhook.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
 | webhook.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | webhook.certDir | string | `"/tmp/certs"` |  |
 | webhook.failurePolicy | string | `"Fail"` | Specifies whether validating webhooks should be created with failurePolicy: Fail or Ignore |
 | webhook.hostNetwork | bool | `false` | Specifies if webhook pod should use hostNetwork or not. |
 | webhook.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | webhook.image.pullPolicy | string | `"IfNotPresent"` |  |
-| webhook.image.tag | string | `"v0.9.18"` | The image tag to use. The default is the chart appVersion. |
+| webhook.image.tag | string | `"v0.9.20"` | The image tag to use. The default is the chart appVersion. |
 | webhook.image.flavour | string | `""` | The flavour of tag you want to use |
 | webhook.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | webhook.nameOverride | string | `""` |  |
@@ -183,10 +198,11 @@ helm install external-secrets chart/
 | certController.create | bool | `true` | Specifies whether a certificate controller deployment be created. |
 | certController.requeueInterval | string | `"5m"` |  |
 | certController.replicaCount | int | `1` |  |
+| certController.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
 | certController.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | certController.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | certController.image.pullPolicy | string | `"IfNotPresent"` |  |
-| certController.image.tag | string | `"v0.9.18"` |  |
+| certController.image.tag | string | `"v0.9.20"` |  |
 | certController.image.flavour | string | `""` |  |
 | certController.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | certController.nameOverride | string | `""` |  |
@@ -264,3 +280,8 @@ helm install external-secrets chart/
 ## Contributing
 
 Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in contributing.
+
+---
+
+_This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
+
