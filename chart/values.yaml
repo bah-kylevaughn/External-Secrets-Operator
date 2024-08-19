@@ -390,7 +390,9 @@ webhook:
     # -- Annotations to add to Pod
   podAnnotations: {}
 
-  podLabels: {}
+  podLabels: {
+    external-secrets.io/component: webhook
+  }
 
   podSecurityContext:
     enabled: true
@@ -584,6 +586,14 @@ networkPolicies:
     app: istio-ingressgateway
     istio: ingressgateway  
   additionalPolicies: []
+  ingress:
+    - from:
+      - namespaceSelector: {}
+      ports:
+      - port: 10250
+        protocol: TCP
+      - port: 10250
+        protocol: TCP
 
 bbtests:
   enabled: false
