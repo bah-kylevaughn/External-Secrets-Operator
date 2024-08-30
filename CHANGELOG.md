@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.10.2-bb.0] - 2024-08-30
+
+### Changed
+
+- Updated ESO to v0.10.2
+- Updated to gluon 0.5.3
+
 ## [0.9.20-bb.3] - 2024-08-19
 
 ### Changed
