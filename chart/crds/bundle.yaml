@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: clusterexternalsecrets.external-secrets.io
@@ -131,7 +131,6 @@ spec:
                               generatorRef:
                                 description: |-
                                   GeneratorRef points to a generator custom resource.
-
 
                                   Deprecated: The generatorRef is not implemented in .data[].
                                   this will be removed with v1.
@@ -660,7 +659,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: clustersecretstores.external-secrets.io
@@ -2613,6 +2612,9 @@ spec:
                         externalID:
                           description: AWS External ID set on assumed IAM roles
                           type: string
+                        prefix:
+                          description: Prefix adds a prefix to all retrieved values.
+                          type: string
                         region:
                           description: AWS Region to be used for the provider
                           type: string
@@ -2804,6 +2806,134 @@ spec:
                       required:
                         - vaultUrl
                       type: object
+                    beyondtrust:
+                      description: Beyondtrust configures this store to sync secrets using Password Safe provider.
+                      properties:
+                        auth:
+                          description: Auth configures how the operator authenticates with Beyondtrust.
+                          properties:
+                            certificate:
+                              description: Content of the certificate (cert.pem) for use when authenticating with an OAuth client Id using a Client Certificate.
+                              properties:
+                                secretRef:
+                                  description: SecretRef references a key in a secret that will be used as value.
+                                  properties:
+                                    key:
+                                      description: |-
+                                        The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                        defaulted, in others it may be required.
+                                      type: string
+                                    name:
+                                      description: The name of the Secret resource being referred to.
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                        to the namespace of the referent.
+                                      type: string
+                                  type: object
+                                value:
+                                  description: Value can be specified directly to set a value without using a secret.
+                                  type: string
+                              type: object
+                            certificateKey:
+                              description: Certificate private key (key.pem). For use when authenticating with an OAuth client Id
+                              properties:
+                                secretRef:
+                                  description: SecretRef references a key in a secret that will be used as value.
+                                  properties:
+                                    key:
+                                      description: |-
+                                        The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                        defaulted, in others it may be required.
+                                      type: string
+                                    name:
+                                      description: The name of the Secret resource being referred to.
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                        to the namespace of the referent.
+                                      type: string
+                                  type: object
+                                value:
+                                  description: Value can be specified directly to set a value without using a secret.
+                                  type: string
+                              type: object
+                            clientId:
+                              properties:
+                                secretRef:
+                                  description: SecretRef references a key in a secret that will be used as value.
+                                  properties:
+                                    key:
+                                      description: |-
+                                        The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                        defaulted, in others it may be required.
+                                      type: string
+                                    name:
+                                      description: The name of the Secret resource being referred to.
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                        to the namespace of the referent.
+                                      type: string
+                                  type: object
+                                value:
+                                  description: Value can be specified directly to set a value without using a secret.
+                                  type: string
+                              type: object
+                            clientSecret:
+                              properties:
+                                secretRef:
+                                  description: SecretRef references a key in a secret that will be used as value.
+                                  properties:
+                                    key:
+                                      description: |-
+                                        The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                        defaulted, in others it may be required.
+                                      type: string
+                                    name:
+                                      description: The name of the Secret resource being referred to.
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                        to the namespace of the referent.
+                                      type: string
+                                  type: object
+                                value:
+                                  description: Value can be specified directly to set a value without using a secret.
+                                  type: string
+                              type: object
+                          required:
+                            - clientId
+                            - clientSecret
+                          type: object
+                        server:
+                          description: Auth configures how API server works.
+                          properties:
+                            apiUrl:
+                              type: string
+                            clientTimeOutSeconds:
+                              description: Timeout specifies a time limit for requests made by this Client. The timeout includes connection time, any redirects, and reading the response body. Defaults to 45 seconds.
+                              type: integer
+                            retrievalType:
+                              description: The secret retrieval type. SECRET = Secrets Safe (credential, text, file). MANAGED_ACCOUNT = Password Safe account associated with a system.
+                              type: string
+                            separator:
+                              description: A character that separates the folder names.
+                              type: string
+                            verifyCA:
+                              type: boolean
+                          required:
+                            - apiUrl
+                            - verifyCA
+                          type: object
+                      required:
+                        - auth
+                        - server
+                      type: object
                     bitwardensecretsmanager:
                       description: BitwardenSecretsManager configures this store to sync secrets using BitwardenSecretsManager provider
                       properties:
@@ -2847,6 +2977,30 @@ spec:
                             Base64 encoded certificate for the bitwarden server sdk. The sdk MUST run with HTTPS to make sure no MITM attack
                             can be performed.
                           type: string
+                        caProvider:
+                          description: 'see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider'
+                          properties:
+                            key:
+                              description: The key where the CA certificate can be found in the Secret or ConfigMap.
+                              type: string
+                            name:
+                              description: The name of the object located at the provider type.
+                              type: string
+                            namespace:
+                              description: |-
+                                The namespace the Provider type is in.
+                                Can only be defined when used in a ClusterSecretStore.
+                              type: string
+                            type:
+                              description: The type of provider to use such as "Secret", or "ConfigMap".
+                              enum:
+                                - Secret
+                                - ConfigMap
+                              type: string
+                          required:
+                            - name
+                            - type
+                          type: object
                         identityURL:
                           type: string
                         organizationID:
@@ -2857,7 +3011,6 @@ spec:
                           type: string
                       required:
                         - auth
-                        - caBundle
                         - organizationID
                         - projectID
                       type: object
@@ -4035,7 +4188,7 @@ spec:
                               type: object
                           type: object
                         apiUrl:
-                          default: https://api.pulumi.com
+                          default: https://api.pulumi.com/api/preview
                           description: APIURL is the URL of the Pulumi API.
                           type: string
                         environment:
@@ -4120,6 +4273,69 @@ spec:
                         - projectId
                         - region
                         - secretKey
+                      type: object
+                    secretserver:
+                      description: |-
+                        SecretServer configures this store to sync secrets using SecretServer provider
+                        https://docs.delinea.com/online-help/secret-server/start.htm
+                      properties:
+                        password:
+                          description: Password is the secret server account password.
+                          properties:
+                            secretRef:
+                              description: SecretRef references a key in a secret that will be used as value.
+                              properties:
+                                key:
+                                  description: |-
+                                    The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                    defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: The name of the Secret resource being referred to.
+                                  type: string
+                                namespace:
+                                  description: |-
+                                    Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                    to the namespace of the referent.
+                                  type: string
+                              type: object
+                            value:
+                              description: Value can be specified directly to set a value without using a secret.
+                              type: string
+                          type: object
+                        serverURL:
+                          description: |-
+                            ServerURL
+                            URL to your secret server installation
+                          type: string
+                        username:
+                          description: Username is the secret server account username.
+                          properties:
+                            secretRef:
+                              description: SecretRef references a key in a secret that will be used as value.
+                              properties:
+                                key:
+                                  description: |-
+                                    The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                    defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: The name of the Secret resource being referred to.
+                                  type: string
+                                namespace:
+                                  description: |-
+                                    Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                    to the namespace of the referent.
+                                  type: string
+                              type: object
+                            value:
+                              description: Value can be specified directly to set a value without using a secret.
+                              type: string
+                          type: object
+                      required:
+                        - password
+                        - serverURL
+                        - username
                       type: object
                     senhasegura:
                       description: Senhasegura configures this store to sync secrets using senhasegura provider
@@ -4685,6 +4901,11 @@ spec:
                             the option is enabled serverside.
                             https://www.vaultproject.io/docs/configuration/replication#allow_forwarding_via_header
                           type: boolean
+                        headers:
+                          additionalProperties:
+                            type: string
+                          description: Headers to be added in Vault request
+                          type: object
                         namespace:
                           description: |-
                             Name of the vault namespace. Namespaces is a set of features within Vault Enterprise that allows
@@ -5030,7 +5251,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: externalsecrets.external-secrets.io
@@ -5279,9 +5500,7 @@ spec:
                         This field is effectively required, but due to backwards compatibility is
                         allowed to be empty. Instances of this type with an empty value here are
                         almost certainly wrong.
-                        TODO: Add other useful fields. apiVersion, kind, uid?
                         More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                        TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                       type: string
                   type: object
                   x-kubernetes-map-type: atomic
@@ -5417,7 +5636,6 @@ spec:
                           generatorRef:
                             description: |-
                               GeneratorRef points to a generator custom resource.
-
 
                               Deprecated: The generatorRef is not implemented in .data[].
                               this will be removed with v1.
@@ -5790,9 +6008,7 @@ spec:
                         This field is effectively required, but due to backwards compatibility is
                         allowed to be empty. Instances of this type with an empty value here are
                         almost certainly wrong.
-                        TODO: Add other useful fields. apiVersion, kind, uid?
                         More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                        TODO: Drop `kubebuilder:default` when controller-gen doesn't need it https://github.com/kubernetes-sigs/kubebuilder/issues/3896.
                       type: string
                   type: object
                   x-kubernetes-map-type: atomic
@@ -5846,7 +6062,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   name: pushsecrets.external-secrets.io
 spec:
   group: external-secrets.io
@@ -6223,7 +6439,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: secretstores.external-secrets.io
@@ -8176,6 +8392,9 @@ spec:
                         externalID:
                           description: AWS External ID set on assumed IAM roles
                           type: string
+                        prefix:
+                          description: Prefix adds a prefix to all retrieved values.
+                          type: string
                         region:
                           description: AWS Region to be used for the provider
                           type: string
@@ -8367,6 +8586,134 @@ spec:
                       required:
                         - vaultUrl
                       type: object
+                    beyondtrust:
+                      description: Beyondtrust configures this store to sync secrets using Password Safe provider.
+                      properties:
+                        auth:
+                          description: Auth configures how the operator authenticates with Beyondtrust.
+                          properties:
+                            certificate:
+                              description: Content of the certificate (cert.pem) for use when authenticating with an OAuth client Id using a Client Certificate.
+                              properties:
+                                secretRef:
+                                  description: SecretRef references a key in a secret that will be used as value.
+                                  properties:
+                                    key:
+                                      description: |-
+                                        The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                        defaulted, in others it may be required.
+                                      type: string
+                                    name:
+                                      description: The name of the Secret resource being referred to.
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                        to the namespace of the referent.
+                                      type: string
+                                  type: object
+                                value:
+                                  description: Value can be specified directly to set a value without using a secret.
+                                  type: string
+                              type: object
+                            certificateKey:
+                              description: Certificate private key (key.pem). For use when authenticating with an OAuth client Id
+                              properties:
+                                secretRef:
+                                  description: SecretRef references a key in a secret that will be used as value.
+                                  properties:
+                                    key:
+                                      description: |-
+                                        The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                        defaulted, in others it may be required.
+                                      type: string
+                                    name:
+                                      description: The name of the Secret resource being referred to.
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                        to the namespace of the referent.
+                                      type: string
+                                  type: object
+                                value:
+                                  description: Value can be specified directly to set a value without using a secret.
+                                  type: string
+                              type: object
+                            clientId:
+                              properties:
+                                secretRef:
+                                  description: SecretRef references a key in a secret that will be used as value.
+                                  properties:
+                                    key:
+                                      description: |-
+                                        The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                        defaulted, in others it may be required.
+                                      type: string
+                                    name:
+                                      description: The name of the Secret resource being referred to.
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                        to the namespace of the referent.
+                                      type: string
+                                  type: object
+                                value:
+                                  description: Value can be specified directly to set a value without using a secret.
+                                  type: string
+                              type: object
+                            clientSecret:
+                              properties:
+                                secretRef:
+                                  description: SecretRef references a key in a secret that will be used as value.
+                                  properties:
+                                    key:
+                                      description: |-
+                                        The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                        defaulted, in others it may be required.
+                                      type: string
+                                    name:
+                                      description: The name of the Secret resource being referred to.
+                                      type: string
+                                    namespace:
+                                      description: |-
+                                        Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                        to the namespace of the referent.
+                                      type: string
+                                  type: object
+                                value:
+                                  description: Value can be specified directly to set a value without using a secret.
+                                  type: string
+                              type: object
+                          required:
+                            - clientId
+                            - clientSecret
+                          type: object
+                        server:
+                          description: Auth configures how API server works.
+                          properties:
+                            apiUrl:
+                              type: string
+                            clientTimeOutSeconds:
+                              description: Timeout specifies a time limit for requests made by this Client. The timeout includes connection time, any redirects, and reading the response body. Defaults to 45 seconds.
+                              type: integer
+                            retrievalType:
+                              description: The secret retrieval type. SECRET = Secrets Safe (credential, text, file). MANAGED_ACCOUNT = Password Safe account associated with a system.
+                              type: string
+                            separator:
+                              description: A character that separates the folder names.
+                              type: string
+                            verifyCA:
+                              type: boolean
+                          required:
+                            - apiUrl
+                            - verifyCA
+                          type: object
+                      required:
+                        - auth
+                        - server
+                      type: object
                     bitwardensecretsmanager:
                       description: BitwardenSecretsManager configures this store to sync secrets using BitwardenSecretsManager provider
                       properties:
@@ -8410,6 +8757,30 @@ spec:
                             Base64 encoded certificate for the bitwarden server sdk. The sdk MUST run with HTTPS to make sure no MITM attack
                             can be performed.
                           type: string
+                        caProvider:
+                          description: 'see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider'
+                          properties:
+                            key:
+                              description: The key where the CA certificate can be found in the Secret or ConfigMap.
+                              type: string
+                            name:
+                              description: The name of the object located at the provider type.
+                              type: string
+                            namespace:
+                              description: |-
+                                The namespace the Provider type is in.
+                                Can only be defined when used in a ClusterSecretStore.
+                              type: string
+                            type:
+                              description: The type of provider to use such as "Secret", or "ConfigMap".
+                              enum:
+                                - Secret
+                                - ConfigMap
+                              type: string
+                          required:
+                            - name
+                            - type
+                          type: object
                         identityURL:
                           type: string
                         organizationID:
@@ -8420,7 +8791,6 @@ spec:
                           type: string
                       required:
                         - auth
-                        - caBundle
                         - organizationID
                         - projectID
                       type: object
@@ -9598,7 +9968,7 @@ spec:
                               type: object
                           type: object
                         apiUrl:
-                          default: https://api.pulumi.com
+                          default: https://api.pulumi.com/api/preview
                           description: APIURL is the URL of the Pulumi API.
                           type: string
                         environment:
@@ -9683,6 +10053,69 @@ spec:
                         - projectId
                         - region
                         - secretKey
+                      type: object
+                    secretserver:
+                      description: |-
+                        SecretServer configures this store to sync secrets using SecretServer provider
+                        https://docs.delinea.com/online-help/secret-server/start.htm
+                      properties:
+                        password:
+                          description: Password is the secret server account password.
+                          properties:
+                            secretRef:
+                              description: SecretRef references a key in a secret that will be used as value.
+                              properties:
+                                key:
+                                  description: |-
+                                    The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                    defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: The name of the Secret resource being referred to.
+                                  type: string
+                                namespace:
+                                  description: |-
+                                    Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                    to the namespace of the referent.
+                                  type: string
+                              type: object
+                            value:
+                              description: Value can be specified directly to set a value without using a secret.
+                              type: string
+                          type: object
+                        serverURL:
+                          description: |-
+                            ServerURL
+                            URL to your secret server installation
+                          type: string
+                        username:
+                          description: Username is the secret server account username.
+                          properties:
+                            secretRef:
+                              description: SecretRef references a key in a secret that will be used as value.
+                              properties:
+                                key:
+                                  description: |-
+                                    The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
+                                    defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: The name of the Secret resource being referred to.
+                                  type: string
+                                namespace:
+                                  description: |-
+                                    Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
+                                    to the namespace of the referent.
+                                  type: string
+                              type: object
+                            value:
+                              description: Value can be specified directly to set a value without using a secret.
+                              type: string
+                          type: object
+                      required:
+                        - password
+                        - serverURL
+                        - username
                       type: object
                     senhasegura:
                       description: Senhasegura configures this store to sync secrets using senhasegura provider
@@ -10248,6 +10681,11 @@ spec:
                             the option is enabled serverside.
                             https://www.vaultproject.io/docs/configuration/replication#allow_forwarding_via_header
                           type: boolean
+                        headers:
+                          additionalProperties:
+                            type: string
+                          description: Headers to be added in Vault request
+                          type: object
                         namespace:
                           description: |-
                             Name of the vault namespace. Namespaces is a set of features within Vault Enterprise that allows
@@ -10593,7 +11031,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: acraccesstokens.generators.external-secrets.io
@@ -10620,7 +11058,6 @@ spec:
             (depending on the identity).
             This can be scoped down to the repository level using .spec.scope.
             In case scope is defined it will return an ACR Access Token.
-
 
             See docs: https://github.com/Azure/acr/blob/main/docs/AAD-OAuth.md
           properties:
@@ -10755,11 +11192,9 @@ spec:
                     if not provided it will return a refresh token that has full scope.
                     Note: you need to pin it down to the repository level, there is no wildcard available.
 
-
                     examples:
                     repository:my-repository:pull,push
                     repository:my-repository:pull
-
 
                     see docs for details: https://docs.docker.com/registry/spec/auth/scope/
                   type: string
@@ -10790,7 +11225,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: ecrauthorizationtokens.generators.external-secrets.io
@@ -10958,7 +11393,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: fakes.generators.external-secrets.io
@@ -11035,7 +11470,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: gcraccesstokens.generators.external-secrets.io
@@ -11164,7 +11599,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: githubaccesstokens.generators.external-secrets.io
@@ -11267,7 +11702,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: passwords.generators.external-secrets.io
@@ -11366,7 +11801,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: vaultdynamicsecrets.generators.external-secrets.io
@@ -11938,6 +12373,11 @@ spec:
                         the option is enabled serverside.
                         https://www.vaultproject.io/docs/configuration/replication#allow_forwarding_via_header
                       type: boolean
+                    headers:
+                      additionalProperties:
+                        type: string
+                      description: Headers to be added in Vault request
+                      type: object
                     namespace:
                       description: |-
                         Name of the vault namespace. Namespaces is a set of features within Vault Enterprise that allows
@@ -12059,7 +12499,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.1
   labels:
     external-secrets.io/component: controller
   name: webhooks.generators.external-secrets.io
