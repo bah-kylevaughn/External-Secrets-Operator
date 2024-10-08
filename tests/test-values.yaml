@@ -1,29 +1,3 @@
-resources:
-  requests:
-    memory: 256Mi
-    cpu: 100m
-  limits:
-    cpu: 100m
-    memory: 256Mi
-
-webhook:
-  resources:
-    requests:
-      memory: 256Mi
-      cpu: 100m
-    limits:
-      cpu: 100m
-      memory: 256Mi
-
-certController:
-  resources:
-    requests:
-      memory: 256Mi
-      cpu: 100m
-    limits:
-      cpu: 100m
-      memory: 256Mi
-
 istio:
   enabled: true
 
