@@ -115,6 +115,53 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template.
   name: ""
 
+secretConfiguration:
+  enabled: false
+  secretList:
+  - name: default
+    namespace: ""
+    labels: ""
+    annotations: ""
+    source:
+      # AWS secrets manager only - request for other services can be added later
+      provider: aws
+      # Specify type of service, i.e., SecretsManager (default)
+      service: "SecretsManager" 
+      # Specify the name of the service, secretStoreRef.name
+      serviceName: ""  
+      # Specify AWS region, i.e. us-gov-west-1, default is us-gov-west-1
+      region: us-gov-west-1
+      # Secret pull refresh interval.  Default is 1m.
+      refreshInterval: "1m"
+      auth: 
+      # Specify which authentication to use: identity, accesskey, serviceaccount 
+        authType: ""
+        # Optional: Name of role that defines fine-grained access 
+        role: "" 
+        # Name of accessKeyID and secretAccessKey pair
+        accessKeyName: "" 
+        # Specify AWS Access Key ID
+        accessKeyID: ""
+        # Specify AWS Secret Access Key
+        secretAccessKey: ""
+        # Name of a service account
+        serviceAccount: "" 
+
+      secrets: 
+        targetName: ""  # target/destination secret name
+          # target.creationPolicy default is Owner
+        targetPolicy: ""
+        # This name allows reference by other objects.  
+        secretKeyName: 
+          # Specify key here
+          key: ""
+          # Key version
+          version: ""      
+          # Specify the property of the secret, i.e. username, password
+          property: ""   
+          # Optional" metadataPolicy for ExternalSecret, i.e. Fetch
+          metadataPolicy: ""   
+          
 rbac:
   # -- Specifies whether role and rolebinding resources should be created.
   create: true

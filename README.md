@@ -1,14 +1,14 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # external-secrets
 
-![Version: 0.10.2-bb.1](https://img.shields.io/badge/Version-0.10.2--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.10.2](https://img.shields.io/badge/AppVersion-v0.10.2-informational?style=flat-square)
+![Version: 0.10.2-bb.2](https://img.shields.io/badge/Version-0.10.2--bb.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.10.2](https://img.shields.io/badge/AppVersion-v0.10.2-informational?style=flat-square)
 
 External secret management for Kubernetes
 
 ## Upstream References
-* <https://github.com/external-secrets/external-secrets>
+- <https://github.com/external-secrets/external-secrets>
 
-### Upstream Release Notes
+## Upstream Release Notes
 
 This package has no upstream release note links on file. Please add some to [chart/Chart.yaml](chart/Chart.yaml) under `annotations.bigbang.dev/upstreamReleaseNotesMarkdown`.
 Example:
@@ -20,14 +20,15 @@ annotations:
 ```
 
 ## Learn More
-* [Application Overview](docs/overview.md)
-* [Other Documentation](docs/)
+
+- [Application Overview](docs/overview.md)
+- [Other Documentation](docs/)
 
 ## Pre-Requisites
 
-* Kubernetes Cluster deployed
-* Kubernetes config installed in `~/.kube/config`
-* Helm installed
+- Kubernetes Cluster deployed
+- Kubernetes config installed in `~/.kube/config`
+- Helm installed
 
 Kubernetes: `>= 1.19.0-0`
 
@@ -37,8 +38,9 @@ https://helm.sh/docs/intro/install/
 
 ## Deployment
 
-* Clone down the repository
-* cd into directory
+- Clone down the repository
+- cd into directory
+
 ```bash
 helm install external-secrets chart/
 ```
@@ -89,6 +91,27 @@ helm install external-secrets chart/
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account. |
 | serviceAccount.extraLabels | object | `{}` | Extra Labels to add to the service account. |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. |
+| secretConfiguration[0].name | string | `"default"` |  |
+| secretConfiguration[0].namespace | string | `""` |  |
+| secretConfiguration[0].labels | string | `""` |  |
+| secretConfiguration[0].annotations | string | `""` |  |
+| secretConfiguration[0].source.provider | string | `"aws"` |  |
+| secretConfiguration[0].source.service | string | `"SecretsManager"` |  |
+| secretConfiguration[0].source.serviceName | string | `""` |  |
+| secretConfiguration[0].source.region | string | `"us-gov-west-1"` |  |
+| secretConfiguration[0].source.refreshInterval | string | `"1m"` |  |
+| secretConfiguration[0].source.auth.authType | string | `""` |  |
+| secretConfiguration[0].source.auth.role | string | `""` |  |
+| secretConfiguration[0].source.auth.accessKeyName | string | `""` |  |
+| secretConfiguration[0].source.auth.accessKeyID | string | `""` |  |
+| secretConfiguration[0].source.auth.secretAccessKey | string | `""` |  |
+| secretConfiguration[0].source.auth.serviceAccount | string | `""` |  |
+| secretConfiguration[0].source.secrets.targetName | string | `""` |  |
+| secretConfiguration[0].source.secrets.targetPolicy | string | `""` |  |
+| secretConfiguration[0].source.secrets.secretKeyName.key | string | `""` |  |
+| secretConfiguration[0].source.secrets.secretKeyName.version | string | `""` |  |
+| secretConfiguration[0].source.secrets.secretKeyName.property | string | `""` |  |
+| secretConfiguration[0].source.secrets.secretKeyName.metadataPolicy | string | `""` |  |
 | rbac.create | bool | `true` | Specifies whether role and rolebinding resources should be created. |
 | rbac.servicebindings.create | bool | `true` | Specifies whether a clusterrole to give servicebindings read access should be created. |
 | extraEnv | list | `[]` |  |
@@ -261,11 +284,6 @@ helm install external-secrets chart/
 | networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
 | networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
 | networkPolicies.additionalPolicies | list | `[]` |  |
-| networkPolicies.ingress[0].from[0].namespaceSelector | object | `{}` |  |
-| networkPolicies.ingress[0].ports[0].port | int | `10250` |  |
-| networkPolicies.ingress[0].ports[0].protocol | string | `"TCP"` |  |
-| networkPolicies.ingress[0].ports[1].port | int | `10250` |  |
-| networkPolicies.ingress[0].ports[1].protocol | string | `"TCP"` |  |
 | bbtests.enabled | bool | `false` |  |
 | bbtests.namespace | string | `"external-secrets"` |  |
 | bbtests.secretstore.name | string | `"external-secrets-test-store"` |  |
