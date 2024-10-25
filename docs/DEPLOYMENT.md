@@ -3,11 +3,11 @@
 The External Secrets Operator may be deployed like any other bigbang package. Use this YAML as an example:
 
 ```
-packages:
-  external-secrets:
+addons:
+  externalSecrets:
     enabled: true
     git:
-      repo: https://repo1.dso.mil/big-bang/apps/sandbox/external-secrets.git
+      repo: https://repo1.dso.mil/big-bang/product/packages/external-secrets.git
       path: chart
     values:
       bbtests:
@@ -31,8 +31,8 @@ helm upgrade -i --wait external-secrets chart/ -n external-secrets
 If you want to run helm tests against your deployment, you will need to deploy with bbtests enabled:
 
 ```
-packages:
-  external-secrets:
+addons:
+  externalSecrets:
     values:
       bbtests:
         enabled: true
