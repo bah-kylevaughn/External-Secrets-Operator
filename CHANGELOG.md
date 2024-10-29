@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.10.2-bb.3] - 2024-10-23
+
+### Changed
+
+- Fix resource ordering to correct a hidden test failure that was giving false confidence
+
 ## [0.10.2-bb.2] - 2024-10-17
 
 ### Added
