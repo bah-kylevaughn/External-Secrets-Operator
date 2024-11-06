@@ -91,27 +91,28 @@ helm install external-secrets chart/
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account. |
 | serviceAccount.extraLabels | object | `{}` | Extra Labels to add to the service account. |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. |
-| secretConfiguration[0].name | string | `"default"` |  |
-| secretConfiguration[0].namespace | string | `""` |  |
-| secretConfiguration[0].labels | string | `""` |  |
-| secretConfiguration[0].annotations | string | `""` |  |
-| secretConfiguration[0].source.provider | string | `"aws"` |  |
-| secretConfiguration[0].source.service | string | `"SecretsManager"` |  |
-| secretConfiguration[0].source.serviceName | string | `""` |  |
-| secretConfiguration[0].source.region | string | `"us-gov-west-1"` |  |
-| secretConfiguration[0].source.refreshInterval | string | `"1m"` |  |
-| secretConfiguration[0].source.auth.authType | string | `""` |  |
-| secretConfiguration[0].source.auth.role | string | `""` |  |
-| secretConfiguration[0].source.auth.accessKeyName | string | `""` |  |
-| secretConfiguration[0].source.auth.accessKeyID | string | `""` |  |
-| secretConfiguration[0].source.auth.secretAccessKey | string | `""` |  |
-| secretConfiguration[0].source.auth.serviceAccount | string | `""` |  |
-| secretConfiguration[0].source.secrets.targetName | string | `""` |  |
-| secretConfiguration[0].source.secrets.targetPolicy | string | `""` |  |
-| secretConfiguration[0].source.secrets.secretKeyName.key | string | `""` |  |
-| secretConfiguration[0].source.secrets.secretKeyName.version | string | `""` |  |
-| secretConfiguration[0].source.secrets.secretKeyName.property | string | `""` |  |
-| secretConfiguration[0].source.secrets.secretKeyName.metadataPolicy | string | `""` |  |
+| secretConfiguration.enabled | bool | `false` |  |
+| secretConfiguration.secretList[0].name | string | `"default"` |  |
+| secretConfiguration.secretList[0].namespace | string | `""` |  |
+| secretConfiguration.secretList[0].labels | string | `""` |  |
+| secretConfiguration.secretList[0].annotations | string | `""` |  |
+| secretConfiguration.secretList[0].source.provider | string | `"aws"` |  |
+| secretConfiguration.secretList[0].source.service | string | `"SecretsManager"` |  |
+| secretConfiguration.secretList[0].source.serviceName | string | `""` |  |
+| secretConfiguration.secretList[0].source.region | string | `"us-gov-west-1"` |  |
+| secretConfiguration.secretList[0].source.refreshInterval | string | `"1m"` |  |
+| secretConfiguration.secretList[0].source.auth.authType | string | `""` |  |
+| secretConfiguration.secretList[0].source.auth.role | string | `""` |  |
+| secretConfiguration.secretList[0].source.auth.accessKeyName | string | `""` |  |
+| secretConfiguration.secretList[0].source.auth.accessKeyID | string | `""` |  |
+| secretConfiguration.secretList[0].source.auth.secretAccessKey | string | `""` |  |
+| secretConfiguration.secretList[0].source.auth.serviceAccount | string | `""` |  |
+| secretConfiguration.secretList[0].source.secrets.targetName | string | `""` |  |
+| secretConfiguration.secretList[0].source.secrets.targetPolicy | string | `""` |  |
+| secretConfiguration.secretList[0].source.secrets.secretKeyName.key | string | `""` |  |
+| secretConfiguration.secretList[0].source.secrets.secretKeyName.version | string | `""` |  |
+| secretConfiguration.secretList[0].source.secrets.secretKeyName.property | string | `""` |  |
+| secretConfiguration.secretList[0].source.secrets.secretKeyName.metadataPolicy | string | `""` |  |
 | rbac.create | bool | `true` | Specifies whether role and rolebinding resources should be created. |
 | rbac.servicebindings.create | bool | `true` | Specifies whether a clusterrole to give servicebindings read access should be created. |
 | extraEnv | list | `[]` |  |
