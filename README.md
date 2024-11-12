@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # external-secrets
 
-![Version: 0.10.2-bb.3](https://img.shields.io/badge/Version-0.10.2--bb.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.10.2](https://img.shields.io/badge/AppVersion-v0.10.2-informational?style=flat-square)
+![Version: 0.10.2-bb.5](https://img.shields.io/badge/Version-0.10.2--bb.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.10.2](https://img.shields.io/badge/AppVersion-v0.10.2-informational?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -300,6 +300,30 @@ helm install external-secrets chart/
 | bbtests.role.rules[1].resources[0] | string | `"SelfSubjectRulesReview"` |  |
 | bbtests.role.rules[1].verbs[0] | string | `"create"` |  |
 | bbtests.secrets.testsecret.value | string | `"this is a magic value"` |  |
+| waitJob.enabled | bool | `true` |  |
+| waitJob.scripts.image | string | `"bitnami/kubectl:1.29"` |  |
+| waitJob.permissions.apiGroups[0] | string | `"external-secrets.io"` |  |
+| waitJob.permissions.apiGroups[1] | string | `"generators.external-secrets.io"` |  |
+| waitJob.permissions.apiGroups[2] | string | `""` |  |
+| waitJob.permissions.resources[0] | string | `"acraccesstokens"` |  |
+| waitJob.permissions.resources[1] | string | `"clusterexternalsecrets"` |  |
+| waitJob.permissions.resources[2] | string | `"clustersecretstores"` |  |
+| waitJob.permissions.resources[3] | string | `"ecrauthorizationtokens"` |  |
+| waitJob.permissions.resources[4] | string | `"externalsecrets"` |  |
+| waitJob.permissions.resources[5] | string | `"fakes"` |  |
+| waitJob.permissions.resources[6] | string | `"gcraccesstokens"` |  |
+| waitJob.permissions.resources[7] | string | `"githubaccesstokens"` |  |
+| waitJob.permissions.resources[8] | string | `"passwords"` |  |
+| waitJob.permissions.resources[9] | string | `"pushsecrets"` |  |
+| waitJob.permissions.resources[10] | string | `"secretstores"` |  |
+| waitJob.permissions.resources[11] | string | `"vaultdynamicsecrets"` |  |
+| waitJob.permissions.resources[12] | string | `"webhooks"` |  |
+| waitJob.permissions.resources[13] | string | `"secrets"` |  |
+| waitJob.permissions.verbs[0] | string | `"create"` |  |
+| waitJob.permissions.verbs[1] | string | `"delete"` |  |
+| waitJob.permissions.verbs[2] | string | `"get"` |  |
+| waitJob.permissions.verbs[3] | string | `"list"` |  |
+| waitJob.permissions.verbs[4] | string | `"watch"` |  |
 
 ## Contributing
 
