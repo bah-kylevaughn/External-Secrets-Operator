@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.10.2-bb.5] - 2024-10-31
+
+### Added
+
+- Added a gluon wait script to wait until the validating webhook is functional before completing the helm release
+- Updated the gluon dependency to v0.5.10
+
 ## [0.10.2-bb.3] - 2024-10-23
 
 ### Changed
