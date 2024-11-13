@@ -1,4 +1,4 @@
-# Zero Configuration Authentication Method 
+# Identity Authentication Method 
 
 This is an example on setting up AWS IAM for a target cluster running on AWS that inherits the credentials from the runtime environment using the aws sdk default credential chain (in this case another role.)  
 
