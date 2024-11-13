@@ -2,8 +2,8 @@ apiVersion: v2
 name: external-secrets
 description: External secret management for Kubernetes
 type: application
-version: '0.10.2-bb.5'
-appVersion: v0.10.2
+version: 0.10.4-bb.0
+appVersion: v0.10.4
 kubeVersion: ">= 1.19.0-0"
 keywords:
   - kubernetes-external-secrets
@@ -19,10 +19,10 @@ dependencies:
     repository: "oci://registry1.dso.mil/bigbang"
 annotations:
   bigbang.dev/applicationVersions: |
-    - External Secrets: 0.10.2
+    - External Secrets: 0.10.4
   helm.sh/images: |
     - name: external-secrets
-      image: registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets:v0.10.2
+      image: registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets:v0.10.4
     - name: kubectl
       image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.29.6
 
