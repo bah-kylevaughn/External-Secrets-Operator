@@ -1,4 +1,4 @@
-# Default to false, override in openshift-test-values.yaml 
+# Default to false, override in openshift-test-values.yaml
 openshift: false
 
 global:
@@ -118,52 +118,53 @@ serviceAccount:
 secretConfiguration:
   enabled: false
   secretList:
-  - name: default
-    namespace: ""
-    labels: ""
-    annotations: ""
-    source:
-      # AWS secrets manager only - request for other services can be added later
-      provider: aws
-      # Specify type of service, i.e., SecretsManager (default)
-      service: "SecretsManager" 
-      # Specify the name of the service, secretStoreRef.name
-      serviceName: ""  
-      # Specify AWS region, i.e. us-gov-west-1, default is us-gov-west-1
-      region: us-gov-west-1
-      # Secret pull refresh interval.  Default is 1m.
-      refreshInterval: "1m"
-      auth: 
-      # Specify which authentication to use: identity, accesskey, serviceaccount 
-        authType: ""
-        # Optional: Name of role that defines fine-grained access 
-        role: "" 
-        # Name of accessKeyID and secretAccessKey pair
-        accessKeyName: "" 
-        # Specify AWS Access Key ID
-        accessKeyID: ""
-        # Specify AWS Secret Access Key
-        secretAccessKey: ""
-        # Name of a service account
-        serviceAccount: "" 
+    - name: default
+      namespace: ""
+      labels: ""
+      annotations: ""
+      source:
+        # AWS secrets manager only - request for other services can be added later
+        provider: aws
+        # Specify type of service, i.e., SecretsManager (default)
+        service: "SecretsManager"
+        # Specify the name of the service, secretStoreRef.name
+        serviceName: ""
+        # Specify AWS region, i.e. us-gov-west-1, default is us-gov-west-1
+        region: us-gov-west-1
+        # Secret pull refresh interval.  Default is 1m.
+        refreshInterval: "1m"
+        auth:
+          # Specify which authentication to use: identity, accesskey, serviceaccount
+          authType: ""
+          # Optional: Name of role that defines fine-grained access
+          role: ""
+          # Name of accessKeyID and secretAccessKey pair
+          accessKeyName: ""
+          # Specify AWS Access Key ID
+          accessKeyID: ""
+          # Specify AWS Secret Access Key
+          secretAccessKey: ""
+          # Name of a service account
+          serviceAccount: ""
 
-      secrets: 
-        targetName: ""  # target/destination secret name
-          # target.creationPolicy default is Owner
-        targetPolicy: ""
-        # This name allows reference by other objects.  
-        secretKeyName: 
-          # Specify key here
-          key: ""
-          # Key version
-          version: ""      
-          # Specify the property of the secret, i.e. username, password
-          property: ""   
-          # Optional" metadataPolicy for ExternalSecret, i.e. Fetch
-          metadataPolicy: ""   
-          
+        secrets:
+          targetName:
+            "" # target/destination secret name
+            # target.creationPolicy default is Owner
+          targetPolicy: ""
+          # This name allows reference by other objects.
+          secretKeyName:
+            # Specify key here
+            key: ""
+            # Key version
+            version: ""
+            # Specify the property of the secret, i.e. username, password
+            property: ""
+            # Optional" metadataPolicy for ExternalSecret, i.e. Fetch
+            metadataPolicy: ""
+
 rbac:
-  # -- Specifies whether role and rolebinding resources should be created.
+# -- Specifies whether role and rolebinding resources should be created.
   create: true
 
   servicebindings:
@@ -259,7 +260,6 @@ serviceMonitor:
   #   action: replace
 
 metrics:
-
   listen:
     port: 8080
 
@@ -296,7 +296,7 @@ hostNetwork: false
 webhook:
   # -- Specifies whether a webhook deployment be created.
   # The default behavior of ESO in bigbang at this time is to NOT deploy the validating webhook. There
-  # is a bug that is still unresolved which causes the cert-controller and validating webhook to 
+  # is a bug that is still unresolved which causes the cert-controller and validating webhook to
   # come up unhealthy more often than not. Beware that enabling these options may result in an
   # unhealthy deployment.
   create: false
@@ -331,7 +331,7 @@ webhook:
   # -- The port the webhook will listen to
   port: 10250
   rbac:
-  # -- Specifies whether role and rolebinding resources should be created.
+    # -- Specifies whether role and rolebinding resources should be created.
     create: true
   serviceAccount:
     # -- Specifies whether a service account should be created.
@@ -398,7 +398,6 @@ webhook:
     # maxUnavailable: 1
 
   metrics:
-
     listen:
       port: 8080
 
@@ -412,13 +411,11 @@ webhook:
       # -- Additional service annotations
       annotations: {}
 
-
   readinessProbe:
     # -- Address for readiness probe
     address: ""
     # -- ReadinessProbe port for kubelet
     port: 8081
-
 
     ## -- Extra environment variables to add to container.
   extraEnv: []
@@ -441,9 +438,7 @@ webhook:
     # -- Annotations to add to Pod
   podAnnotations: {}
 
-  podLabels: {
-    external-secrets.io/component: webhook
-  }
+  podLabels: { external-secrets.io/component: webhook }
 
   podSecurityContext:
     enabled: true
@@ -473,7 +468,7 @@ webhook:
 certController:
   # -- Specifies whether a certificate controller deployment be created.
   # The default behavior of ESO in bigbang at this time is to NOT create a cert controller. There
-  # is a bug that is still unresolved which causes the cert-controller and validating webhook to 
+  # is a bug that is still unresolved which causes the cert-controller and validating webhook to
   # come up unhealthy more often than not. Beware that enabling these options may result in an
   # unhealthy deployment.
   create: false
@@ -496,7 +491,7 @@ certController:
   nameOverride: ""
   fullnameOverride: ""
   rbac:
-  # -- Specifies whether role and rolebinding resources should be created.
+    # -- Specifies whether role and rolebinding resources should be created.
     create: true
   serviceAccount:
     # -- Specifies whether a service account should be created.
@@ -533,7 +528,6 @@ certController:
     # maxUnavailable: 1
 
   metrics:
-
     listen:
       port: 8080
 
@@ -558,7 +552,6 @@ certController:
 
     ## -- Map of extra arguments to pass to container.
   extraArgs: {}
-
 
     ## -- Extra volumes to pass to pod.
   extraVolumes: []
@@ -626,7 +619,7 @@ istio:
     #         - number: 443
     #           protocol: TLS
     #           name: https
-    #       resolution: DNS  
+    #       resolution: DNS
     customAuthorizationPolicies: []
     # - name: "allow-nothing"
     #   enabled: true
@@ -641,7 +634,7 @@ networkPolicies:
   enabled: false
   ingressLabels:
     app: istio-ingressgateway
-    istio: ingressgateway  
+    istio: ingressgateway
   additionalPolicies: []
 
 bbtests:
@@ -657,12 +650,12 @@ bbtests:
   role:
     name: external-secrets-reader
     rules:
-    - apiGroups: [""]
-      resources: ["secrets"]
-      verbs: ["get", "watch", "list"]
-    - apiGroups: [""]
-      resources: ["SelfSubjectRulesReview"]
-      verbs: ["create"]
+      - apiGroups: [""]
+        resources: ["secrets"]
+        verbs: ["get", "watch", "list"]
+      - apiGroups: [""]
+        resources: ["SelfSubjectRulesReview"]
+        verbs: ["create"]
   secrets:
     testsecret:
       value: "this is a magic value"
@@ -675,7 +668,7 @@ waitJob:
       - external-secrets.io
       - generators.external-secrets.io
       - ""
-    resources: 
+    resources:
       - acraccesstokens
       - clusterexternalsecrets
       - clustersecretstores
@@ -693,6 +686,6 @@ waitJob:
     verbs:
       - create
       - delete
-      - get 
-      - list 
+      - get
+      - list
       - watch
