@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Updated chart to v0.10.4
 - Updated to gluon 0.5.4
+- Added the maintenance track annotation and badge
 
 
 ## [0.10.2-bb.5] - 2024-10-31

@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # external-secrets
 
-![Version: 0.10.4-bb.0](https://img.shields.io/badge/Version-0.10.4--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.10.4](https://img.shields.io/badge/AppVersion-v0.10.4-informational?style=flat-square)
+![Version: 0.10.4-bb.0](https://img.shields.io/badge/Version-0.10.4--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.10.4](https://img.shields.io/badge/AppVersion-v0.10.4-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -156,7 +156,7 @@ helm install external-secrets chart/
 | priorityClassName | string | `""` | Pod priority class name. |
 | podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/ |
 | hostNetwork | bool | `false` | Run the controller on the host network |
-| webhook.create | bool | `true` | Specifies whether a webhook deployment be created. |
+| webhook.create | bool | `false` | Specifies whether a webhook deployment be created. The default behavior of ESO in bigbang at this time is to NOT deploy the validating webhook. There is a bug that is still unresolved which causes the cert-controller and validating webhook to  come up unhealthy more often than not. Beware that enabling these options may result in an unhealthy deployment. |
 | webhook.certCheckInterval | string | `"5m"` | Specifices the time to check if the cert is valid |
 | webhook.lookaheadInterval | string | `""` | Specifices the lookaheadInterval for certificate validity |
 | webhook.replicaCount | int | `1` |  |
@@ -219,7 +219,7 @@ helm install external-secrets chart/
 | webhook.resources.requests.cpu | string | `"100m"` |  |
 | webhook.resources.limits.cpu | string | `"100m"` |  |
 | webhook.resources.limits.memory | string | `"256Mi"` |  |
-| certController.create | bool | `true` | Specifies whether a certificate controller deployment be created. |
+| certController.create | bool | `false` | Specifies whether a certificate controller deployment be created. The default behavior of ESO in bigbang at this time is to NOT create a cert controller. There is a bug that is still unresolved which causes the cert-controller and validating webhook to  come up unhealthy more often than not. Beware that enabling these options may result in an unhealthy deployment. |
 | certController.requeueInterval | string | `"5m"` |  |
 | certController.replicaCount | int | `1` |  |
 | certController.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
@@ -241,7 +241,7 @@ helm install external-secrets chart/
 | certController.tolerations | list | `[]` |  |
 | certController.topologySpreadConstraints | list | `[]` |  |
 | certController.affinity | object | `{}` |  |
-| certController.hostNetwork | bool | `false` | Run the certController on the host network |
+| certController.hostNetwork | bool | `false` | Run the certController on the host network Upstream bug reports related to the ongoing cert-controller/validating webhook issue indicate that in some EKS and GCP deployments, using `hostNetwork: true` may resolve some issues. |
 | certController.priorityClassName | string | `""` | Pod priority class name. |
 | certController.podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/ |
 | certController.metrics.listen.port | int | `8080` |  |
@@ -301,7 +301,7 @@ helm install external-secrets chart/
 | bbtests.role.rules[1].verbs[0] | string | `"create"` |  |
 | bbtests.secrets.testsecret.value | string | `"this is a magic value"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"bitnami/kubectl:1.29"` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.29.6"` |  |
 | waitJob.permissions.apiGroups[0] | string | `"external-secrets.io"` |  |
 | waitJob.permissions.apiGroups[1] | string | `"generators.external-secrets.io"` |  |
 | waitJob.permissions.apiGroups[2] | string | `""` |  |
