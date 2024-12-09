@@ -4,6 +4,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.11.0-bb.0] - 2024-12-4
+
+### Changed
+
+- Updated chart to v0.11.0
+- Updated gluon to 0.5.12
+- Updated kubectl to v1.30.7
+
 ## [0.10.4-bb.1] - 2024-11-14
 
 ### Changed
