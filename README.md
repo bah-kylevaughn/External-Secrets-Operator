@@ -1,20 +1,17 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
-
 # external-secrets
 
-![Version: 0.10.4-bb.1](https://img.shields.io/badge/Version-0.10.4--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.10.4](https://img.shields.io/badge/AppVersion-v0.10.4-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.11.0-bb.0](https://img.shields.io/badge/Version-0.11.0--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.11.0](https://img.shields.io/badge/AppVersion-v0.11.0-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 External secret management for Kubernetes
 
 ## Upstream References
-
 - <https://github.com/external-secrets/external-secrets>
 
 ## Upstream Release Notes
 
 This package has no upstream release note links on file. Please add some to [chart/Chart.yaml](chart/Chart.yaml) under `annotations.bigbang.dev/upstreamReleaseNotesMarkdown`.
 Example:
-
 ```yaml
 annotations:
   bigbang.dev/upstreamReleaseNotesMarkdown: |
@@ -63,14 +60,15 @@ helm install external-secrets chart/
 | revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.tag | string | `"v0.10.4"` | The image tag to use. The default is the chart appVersion. |
+| image.tag | string | `"v0.11.0"` | The image tag to use. The default is the chart appVersion. |
 | image.flavour | string | `""` | The flavour of tag you want to use There are different image flavours available, like distroless and ubi. Please see GitHub release notes for image tags for these flavors. By default, the distroless image is used. |
 | installCRDs | bool | `false` | If set, install and upgrade CRDs through helm chart. |
 | crds.createClusterExternalSecret | bool | `true` | If true, create CRDs for Cluster External Secret. |
 | crds.createClusterSecretStore | bool | `true` | If true, create CRDs for Cluster Secret Store. |
+| crds.createClusterGenerator | bool | `true` | If true, create CRDs for Cluster Generator. |
 | crds.createPushSecret | bool | `true` | If true, create CRDs for Push Secret. |
 | crds.annotations | object | `{}` |  |
-| crds.conversion.enabled | bool | `true` |  |
+| crds.conversion.enabled | bool | `false` | If webhook is set to false this also needs to be set to false otherwise the kubeapi will be hammered because the conversion is looking for a webhook endpoint. |
 | imagePullSecrets[0].name | string | `"private-registry"` |  |
 | nameOverride | string | `""` |  |
 | fullnameOverride | string | `""` |  |
@@ -159,7 +157,7 @@ helm install external-secrets chart/
 | priorityClassName | string | `""` | Pod priority class name. |
 | podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/ |
 | hostNetwork | bool | `false` | Run the controller on the host network |
-| webhook.create | bool | `false` | Specifies whether a webhook deployment be created. The default behavior of ESO in bigbang at this time is to NOT deploy the validating webhook. There is a bug that is still unresolved which causes the cert-controller and validating webhook to  come up unhealthy more often than not. Beware that enabling these options may result in an unhealthy deployment. |
+| webhook.create | bool | `false` | Specifies whether a webhook deployment be created. The default behavior of ESO in bigbang at this time is to NOT deploy the validating webhook. There is a bug that is still unresolved which causes the cert-controller and validating webhook to come up unhealthy more often than not. Beware that enabling these options may result in an unhealthy deployment. |
 | webhook.certCheckInterval | string | `"5m"` | Specifices the time to check if the cert is valid |
 | webhook.lookaheadInterval | string | `""` | Specifices the lookaheadInterval for certificate validity |
 | webhook.replicaCount | int | `1` |  |
@@ -170,7 +168,7 @@ helm install external-secrets chart/
 | webhook.hostNetwork | bool | `false` | Specifies if webhook pod should use hostNetwork or not. |
 | webhook.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | webhook.image.pullPolicy | string | `"IfNotPresent"` |  |
-| webhook.image.tag | string | `"v0.10.4"` | The image tag to use. The default is the chart appVersion. |
+| webhook.image.tag | string | `"v0.11.0"` | The image tag to use. The default is the chart appVersion. |
 | webhook.image.flavour | string | `""` | The flavour of tag you want to use |
 | webhook.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | webhook.nameOverride | string | `""` |  |
@@ -222,14 +220,14 @@ helm install external-secrets chart/
 | webhook.resources.requests.cpu | string | `"100m"` |  |
 | webhook.resources.limits.cpu | string | `"100m"` |  |
 | webhook.resources.limits.memory | string | `"256Mi"` |  |
-| certController.create | bool | `false` | Specifies whether a certificate controller deployment be created. The default behavior of ESO in bigbang at this time is to NOT create a cert controller. There is a bug that is still unresolved which causes the cert-controller and validating webhook to  come up unhealthy more often than not. Beware that enabling these options may result in an unhealthy deployment. |
+| certController.create | bool | `false` | Specifies whether a certificate controller deployment be created. The default behavior of ESO in bigbang at this time is to NOT create a cert controller. There is a bug that is still unresolved which causes the cert-controller and validating webhook to come up unhealthy more often than not. Beware that enabling these options may result in an unhealthy deployment. |
 | certController.requeueInterval | string | `"5m"` |  |
 | certController.replicaCount | int | `1` |  |
 | certController.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
 | certController.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | certController.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | certController.image.pullPolicy | string | `"IfNotPresent"` |  |
-| certController.image.tag | string | `"v0.10.4"` |  |
+| certController.image.tag | string | `"v0.11.0"` |  |
 | certController.image.flavour | string | `""` |  |
 | certController.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | certController.nameOverride | string | `""` |  |
@@ -304,7 +302,7 @@ helm install external-secrets chart/
 | bbtests.role.rules[1].verbs[0] | string | `"create"` |  |
 | bbtests.secrets.testsecret.value | string | `"this is a magic value"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.29.6"` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.7"` |  |
 | waitJob.permissions.apiGroups[0] | string | `"external-secrets.io"` |  |
 | waitJob.permissions.apiGroups[1] | string | `"generators.external-secrets.io"` |  |
 | waitJob.permissions.apiGroups[2] | string | `""` |  |
@@ -335,3 +333,4 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
+
