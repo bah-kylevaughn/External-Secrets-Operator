@@ -1,17 +1,19 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # external-secrets
 
-![Version: 0.11.0-bb.0](https://img.shields.io/badge/Version-0.11.0--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.11.0](https://img.shields.io/badge/AppVersion-v0.11.0-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.11.0-bb.1](https://img.shields.io/badge/Version-0.11.0--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.11.0](https://img.shields.io/badge/AppVersion-v0.11.0-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 External secret management for Kubernetes
 
 ## Upstream References
+
 - <https://github.com/external-secrets/external-secrets>
 
 ## Upstream Release Notes
 
 This package has no upstream release note links on file. Please add some to [chart/Chart.yaml](chart/Chart.yaml) under `annotations.bigbang.dev/upstreamReleaseNotesMarkdown`.
 Example:
+
 ```yaml
 annotations:
   bigbang.dev/upstreamReleaseNotesMarkdown: |
@@ -34,7 +36,7 @@ Kubernetes: `>= 1.19.0-0`
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
@@ -57,7 +59,7 @@ helm install external-secrets chart/
 | global.compatibility.openshift.adaptSecurityContext | string | `"auto"` | Manages the securityContext properties to make them compatible with OpenShift. Possible values: auto - Apply configurations if it is detected that OpenShift is the target platform. force - Always apply configurations. disabled - No modification applied. |
 | replicaCount | int | `1` |  |
 | bitwarden-sdk-server.enabled | bool | `false` |  |
-| revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
+| revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy>) |
 | image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.tag | string | `"v0.11.0"` | The image tag to use. The default is the chart appVersion. |
@@ -155,14 +157,14 @@ helm install external-secrets chart/
 | topologySpreadConstraints | list | `[]` |  |
 | affinity | object | `{}` |  |
 | priorityClassName | string | `""` | Pod priority class name. |
-| podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/ |
+| podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see <https://kubernetes.io/docs/concepts/workloads/pods/disruptions/> |
 | hostNetwork | bool | `false` | Run the controller on the host network |
 | webhook.create | bool | `false` | Specifies whether a webhook deployment be created. The default behavior of ESO in bigbang at this time is to NOT deploy the validating webhook. There is a bug that is still unresolved which causes the cert-controller and validating webhook to come up unhealthy more often than not. Beware that enabling these options may result in an unhealthy deployment. |
 | webhook.certCheckInterval | string | `"5m"` | Specifices the time to check if the cert is valid |
 | webhook.lookaheadInterval | string | `""` | Specifices the lookaheadInterval for certificate validity |
 | webhook.replicaCount | int | `1` |  |
 | webhook.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
-| webhook.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
+| webhook.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy>) |
 | webhook.certDir | string | `"/tmp/certs"` |  |
 | webhook.failurePolicy | string | `"Fail"` | Specifies whether validating webhooks should be created with failurePolicy: Fail or Ignore |
 | webhook.hostNetwork | bool | `false` | Specifies if webhook pod should use hostNetwork or not. |
@@ -181,18 +183,18 @@ helm install external-secrets chart/
 | webhook.serviceAccount.extraLabels | object | `{}` | Extra Labels to add to the service account. |
 | webhook.serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. |
 | webhook.nodeSelector | object | `{}` |  |
-| webhook.certManager.enabled | bool | `false` | Enabling cert-manager support will disable the built in secret and switch to using cert-manager (installed separately) to automatically issue and renew the webhook certificate. This chart does not install cert-manager for you, See https://cert-manager.io/docs/ |
-| webhook.certManager.addInjectorAnnotations | bool | `true` | Automatically add the cert-manager.io/inject-ca-from annotation to the webhooks and CRDs. As long as you have the cert-manager CA Injector enabled, this will automatically setup your webhook's CA to the one used by cert-manager. See https://cert-manager.io/docs/concepts/ca-injector |
-| webhook.certManager.cert.create | bool | `true` | Create a certificate resource within this chart. See https://cert-manager.io/docs/usage/certificate/ |
-| webhook.certManager.cert.issuerRef | object | `{"group":"cert-manager.io","kind":"Issuer","name":"my-issuer"}` | For the Certificate created by this chart, setup the issuer. See https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.IssuerSpec |
-| webhook.certManager.cert.duration | string | `"8760h"` | Set the requested duration (i.e. lifetime) of the Certificate. See https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec One year by default. |
-| webhook.certManager.cert.renewBefore | string | `""` | How long before the currently issued certificate’s expiry cert-manager should renew the certificate. See https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec Note that renewBefore should be greater than .webhook.lookaheadInterval since the webhook will check this far in advance that the certificate is valid. |
+| webhook.certManager.enabled | bool | `false` | Enabling cert-manager support will disable the built in secret and switch to using cert-manager (installed separately) to automatically issue and renew the webhook certificate. This chart does not install cert-manager for you, See <https://cert-manager.io/docs/> |
+| webhook.certManager.addInjectorAnnotations | bool | `true` | Automatically add the cert-manager.io/inject-ca-from annotation to the webhooks and CRDs. As long as you have the cert-manager CA Injector enabled, this will automatically setup your webhook's CA to the one used by cert-manager. See <https://cert-manager.io/docs/concepts/ca-injector> |
+| webhook.certManager.cert.create | bool | `true` | Create a certificate resource within this chart. See <https://cert-manager.io/docs/usage/certificate/> |
+| webhook.certManager.cert.issuerRef | object | `{"group":"cert-manager.io","kind":"Issuer","name":"my-issuer"}` | For the Certificate created by this chart, setup the issuer. See <https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.IssuerSpec> |
+| webhook.certManager.cert.duration | string | `"8760h"` | Set the requested duration (i.e. lifetime) of the Certificate. See <https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec> One year by default. |
+| webhook.certManager.cert.renewBefore | string | `""` | How long before the currently issued certificate’s expiry cert-manager should renew the certificate. See <https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec> Note that renewBefore should be greater than .webhook.lookaheadInterval since the webhook will check this far in advance that the certificate is valid. |
 | webhook.certManager.cert.annotations | object | `{}` | Add extra annotations to the Certificate resource. |
 | webhook.tolerations | list | `[]` |  |
 | webhook.topologySpreadConstraints | list | `[]` |  |
 | webhook.affinity | object | `{}` |  |
 | webhook.priorityClassName | string | `""` | Pod priority class name. |
-| webhook.podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/ |
+| webhook.podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see <https://kubernetes.io/docs/concepts/workloads/pods/disruptions/> |
 | webhook.metrics.listen.port | int | `8080` |  |
 | webhook.metrics.service.enabled | bool | `false` | Enable if you use another monitoring tool than Prometheus to scrape the metrics |
 | webhook.metrics.service.port | int | `8080` | Metrics service port to scrape |
@@ -224,7 +226,7 @@ helm install external-secrets chart/
 | certController.requeueInterval | string | `"5m"` |  |
 | certController.replicaCount | int | `1` |  |
 | certController.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
-| certController.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
+| certController.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see <https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy>) |
 | certController.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | certController.image.pullPolicy | string | `"IfNotPresent"` |  |
 | certController.image.tag | string | `"v0.11.0"` |  |
@@ -244,7 +246,7 @@ helm install external-secrets chart/
 | certController.affinity | object | `{}` |  |
 | certController.hostNetwork | bool | `false` | Run the certController on the host network Upstream bug reports related to the ongoing cert-controller/validating webhook issue indicate that in some EKS and GCP deployments, using `hostNetwork: true` may resolve some issues. |
 | certController.priorityClassName | string | `""` | Pod priority class name. |
-| certController.podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/ |
+| certController.podDisruptionBudget | object | `{"enabled":false,"minAvailable":1}` | Pod disruption budget - for more details see <https://kubernetes.io/docs/concepts/workloads/pods/disruptions/> |
 | certController.metrics.listen.port | int | `8080` |  |
 | certController.metrics.service.enabled | bool | `false` | Enable if you use another monitoring tool than Prometheus to scrape the metrics |
 | certController.metrics.service.port | int | `8080` | Metrics service port to scrape |
@@ -333,4 +335,3 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
-
