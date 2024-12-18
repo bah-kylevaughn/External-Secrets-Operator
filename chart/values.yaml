@@ -665,7 +665,7 @@ bbtests:
 waitJob:
   enabled: true
   scripts:
-    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.7
+    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.8
   permissions:
     apiGroups:
       - external-secrets.io
