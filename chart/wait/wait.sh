@@ -1,20 +1,21 @@
 #!/bin/bash
 
 set -x
+namespace=${EXTERNAL_SECRETS_NAMESPACE:-'external-secrets'}
 
 cat >clustersecretstore.yaml <<EOF
 apiVersion: external-secrets.io/v1beta1
 kind: SecretStore
 metadata:
   name: external-secrets-wait-job-store
-  namespace: external-secrets
+  namespace: $namespace
 spec:
   provider:
     kubernetes:
       auth:
         serviceAccount:
           name: external-secrets-wait-job-sa
-      remoteNamespace: external-secrets
+      remoteNamespace: $namespace
       server:
         caProvider:
           key: ca.crt
@@ -25,7 +26,7 @@ EOF
 
 kubectl apply -f clustersecretstore.yaml
 if [[ $? -eq 0 ]]; then
-  kubectl delete secretstore -n external-secrets external-secrets-wait-job-store
+  kubectl delete secretstore -n $namespace external-secrets-wait-job-store
   exit $?
 fi
 exit 1

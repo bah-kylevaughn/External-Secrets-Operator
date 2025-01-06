@@ -692,3 +692,6 @@ waitJob:
       - get
       - list
       - watch
+
+envVars:
+  EXTERNAL_SECRETS_NAMESPACE: "external-secrets"
