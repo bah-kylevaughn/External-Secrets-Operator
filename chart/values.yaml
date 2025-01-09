@@ -27,7 +27,7 @@ image:
   repository: registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets
   pullPolicy: IfNotPresent
   # -- The image tag to use. The default is the chart appVersion.
-  tag: "v0.11.0"
+  tag: "v0.12.1"
   # -- The flavour of tag you want to use
   # There are different image flavours available, like distroless and ubi.
   # Please see GitHub release notes for image tags for these flavors.
@@ -324,7 +324,7 @@ webhook:
     repository: registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets
     pullPolicy: IfNotPresent
     # -- The image tag to use. The default is the chart appVersion.
-    tag: "v0.11.0"
+    tag: "v0.12.1"
     # -- The flavour of tag you want to use
     flavour: ""
   imagePullSecrets:
@@ -487,7 +487,7 @@ certController:
   image:
     repository: registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets
     pullPolicy: IfNotPresent
-    tag: "v0.11.0"
+    tag: "v0.12.1"
     flavour: ""
   imagePullSecrets:
   - name: private-registry
