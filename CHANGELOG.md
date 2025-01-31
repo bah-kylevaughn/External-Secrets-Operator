@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.13.0-bb.0] - 2025-01-29
+
+### Changed
+
+- Updated registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets v0.12.1 -> v0.13.0
+- Updated registry1.dso.mil/ironbank/opensource/kubernetes/kubectl -> v1.30.8 -> v1.30.9
+
 ## [0.12.1-bb.2] - 2024-01-16
 
 ### Added
