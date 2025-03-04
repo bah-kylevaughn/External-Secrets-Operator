@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # external-secrets
 
-![Version: 0.14.2-bb.0](https://img.shields.io/badge/Version-0.14.2--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.14.2](https://img.shields.io/badge/AppVersion-v0.14.2-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.14.3-bb.0](https://img.shields.io/badge/Version-0.14.3--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.14.3](https://img.shields.io/badge/AppVersion-v0.14.3-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -61,7 +61,7 @@ helm install external-secrets chart/
 | revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.tag | string | `"v0.14.1"` | The image tag to use. The default is the chart appVersion. |
+| image.tag | string | `"v0.14.3"` | The image tag to use. The default is the chart appVersion. |
 | image.flavour | string | `""` | The flavour of tag you want to use There are different image flavours available, like distroless and ubi. Please see GitHub release notes for image tags for these flavors. By default, the distroless image is used. |
 | installCRDs | bool | `false` | If set, install and upgrade CRDs through helm chart. |
 | crds.createClusterExternalSecret | bool | `true` | If true, create CRDs for Cluster External Secret. |
@@ -85,7 +85,7 @@ helm install external-secrets chart/
 | processPushSecret | bool | `true` | if true, the operator will process push secret. Else, it will ignore them. |
 | createOperator | bool | `true` | Specifies whether an external secret operator deployment be created. |
 | concurrent | int | `1` | Specifies the number of concurrent ExternalSecret Reconciles external-secret executes at a time. |
-| log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
+| log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the External Secrets Operator |
 | service.ipFamilyPolicy | string | `""` | Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services) |
 | service.ipFamilies | list | `[]` | Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6. |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created. |
@@ -169,7 +169,7 @@ helm install external-secrets chart/
 | webhook.hostNetwork | bool | `false` | Specifies if webhook pod should use hostNetwork or not. |
 | webhook.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | webhook.image.pullPolicy | string | `"IfNotPresent"` |  |
-| webhook.image.tag | string | `"v0.14.1"` | The image tag to use. The default is the chart appVersion. |
+| webhook.image.tag | string | `"v0.14.3"` | The image tag to use. The default is the chart appVersion. |
 | webhook.image.flavour | string | `""` | The flavour of tag you want to use |
 | webhook.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | webhook.nameOverride | string | `""` |  |
@@ -224,11 +224,11 @@ helm install external-secrets chart/
 | certController.create | bool | `false` | Specifies whether a certificate controller deployment be created. The default behavior of ESO in bigbang at this time is to NOT create a cert controller. There is a bug that is still unresolved which causes the cert-controller and validating webhook to come up unhealthy more often than not. Beware that enabling these options may result in an unhealthy deployment. |
 | certController.requeueInterval | string | `"5m"` |  |
 | certController.replicaCount | int | `1` |  |
-| certController.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Webhook |
+| certController.log | object | `{"level":"info","timeEncoding":"epoch"}` | Specifices Log Params to the Certificate Controller |
 | certController.revisionHistoryLimit | int | `10` | Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy) |
 | certController.image.repository | string | `"registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets"` |  |
 | certController.image.pullPolicy | string | `"IfNotPresent"` |  |
-| certController.image.tag | string | `"v0.14.1"` |  |
+| certController.image.tag | string | `"v0.14.3"` |  |
 | certController.image.flavour | string | `""` |  |
 | certController.imagePullSecrets[0].name | string | `"private-registry"` |  |
 | certController.nameOverride | string | `""` |  |
@@ -303,7 +303,7 @@ helm install external-secrets chart/
 | bbtests.role.rules[1].verbs[0] | string | `"create"` |  |
 | bbtests.secrets.testsecret.value | string | `"this is a magic value"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.9"` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.10"` |  |
 | waitJob.permissions.apiGroups[0] | string | `"external-secrets.io"` |  |
 | waitJob.permissions.apiGroups[1] | string | `"generators.external-secrets.io"` |  |
 | waitJob.permissions.apiGroups[2] | string | `""` |  |

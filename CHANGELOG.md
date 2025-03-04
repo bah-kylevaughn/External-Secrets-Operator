@@ -4,7 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.14.1-bb.0] - 2025-02-19
+## [0.14.3-bb.0] - 2025-02-28
+
+### Changed
+
+- Updated registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets (source) v0.14.2 -> v0.14.3
+
+## [0.14.2-bb.0] - 2025-02-19
 
 ### Changed
 
