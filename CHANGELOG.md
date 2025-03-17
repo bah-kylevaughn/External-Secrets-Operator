@@ -4,11 +4,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.14.3-bb.1] - 2025-03-11
+## [0.14.4-bb.0] (2025-03-12)
 
 ### Changed
 
-- Resolve errors from enabling drift detection for ESO
+- registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets v0.14.3 -> v0.14.4
 
 ## [0.14.3-bb.0] - 2025-02-28
 
