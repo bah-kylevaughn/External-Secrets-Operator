@@ -5,7 +5,7 @@ metadata:
 upstream:
   type: git
   git:
-    commit: 209c1b5f9914c8de8d864913a58d7dca4e8c945e
+    commit: b38aca24ea62d0bbdd7519b48a366484a8de3b7d
     repo: https://github.com/external-secrets/external-secrets
     directory: /deploy/charts/external-secrets
-    ref: helm-chart-0.14.4
+    ref: helm-chart-0.15.0
