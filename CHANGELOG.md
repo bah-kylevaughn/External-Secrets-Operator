@@ -4,11 +4,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.14.4-bb.0] (2025-03-12)
+## [0.15.0-bb.0] (2025-03-21)
+
+### Changed
+
+- registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets v0.14.4 -> v0.15.0
+- registry1.dso.mil/ironbank/opensource/kubernetes/kubectl v1.30.10 -> v1.30.11
+
+## [0.14.4-bb.0] - 2025-03-12
 
 ### Changed
 
 - registry1.dso.mil/ironbank/opensource/external-secrets/external-secrets v0.14.3 -> v0.14.4
+
+## [0.14.3-bb.1] - 2025-03-11
+
+### Changed
+
+- Resolve errors from enabling drift detection for ESO
 
 ## [0.14.3-bb.0] - 2025-02-28
 
