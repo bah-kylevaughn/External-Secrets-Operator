@@ -10,4 +10,4 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 data:
-  EXTERNAL_SECRETS_NAMESPACE: {{ .Values.envVars.EXTERNAL_SECRETS_NAMESPACE | quote }}
+  EXTERNAL_SECRETS_NAMESPACE: {{ .Values.waitJob.env.EXTERNAL_SECRETS_NAMESPACE | quote }}
