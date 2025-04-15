@@ -46,7 +46,7 @@ $ helm test external-secrets -n external-secrets
 
 # Deploy Standardized ESO ClusterSecretStore for AWS Secret Manager 
 
-The complete data model/schema is located in the ESO package values.yaml under [secretConfiguration](https://repo1.dso.mil/big-bang/product/packages/external-secrets/-/blob/main/chart/values.yaml?ref_type=heads#L121) section.
+The complete data model/schema is located in the ESO package values.yaml under [clusterSecretStoreConfiguration](https://repo1.dso.mil/big-bang/product/packages/external-secrets/-/blob/main/chart/values.yaml?ref_type=heads#L121) section.
 
 This section is to demonstrate what is needed for deployment.  User can evaluate the requirements and adjust in their own environment accordingly.
 
@@ -65,7 +65,7 @@ There are three types of authentication methods: accesskey, serveraccount or ide
 
 ##### Authentication method: accesskey example
 
-Note: When using the accesskey method for authentication, the kubernetes secret that stores the access key pair (as create in the section Create a secret containing your AWS credentials) need to be present in the same name space as the target or the namespace specified in the secretConfiguration.secretList.
+Note: When using the accesskey method for authentication, the kubernetes secret that stores the access key pair (as create in the section Create a secret containing your AWS credentials) need to be present in the same name space as the target or the namespace specified in the externalSecretsConfiguration.
 
 ```
 addons:
@@ -77,31 +77,31 @@ addons:
     values:
       bbtests:
         enabled: true
-      secretConfiguration:
+      clusterSecretStoreConfiguration:
         enabled: true
-        secretList:
+        clusterSecretStoreList:
           - name: "team-a-store"
             namespace: default
             labels: ""
             annotations: ""
-            ## define types of authentication: ##
+            # define types of authentication: ##
             source: 
-              ## AWS secrets manager only - other services can be added later ##
+              # AWS secrets manager only - other services can be added later ##
               provider: aws 
-              ## Specify type of service, i.e., SecretsManager (default) ##
+              # Specify type of service, i.e., SecretsManager (default) ##
               service: SecretsManager 
-              ## Specify AWS region, i.e. us-gov-west-1 (default) ##
+              # Specify AWS region, i.e. us-gov-west-1 (default) ##
               region: "us-gov-west-1"
-              ## Frequency to check for updates ##
+              # Frequency to check for updates ##
               refreshInterval: "1m"
               auth:
-                ## Specify authType is required: identity, accesskey or serviceaccount ##
+                # Specify authType is required: identity, accesskey or serviceaccount ##
                 authType: "accesskey"  
-                ## Name of the accessKeyID and secretAccessKey pair ##
+                # Name of the accessKeyID and secretAccessKey pair ##
                 accessKeyName: "awssm-secret" 
-                ## Specify AWS Access Key ID file ##
+                # Specify AWS Access Key ID file ##
                 accessKeyID: "access-key"
-                ## Specify AWS Secret Access Key file ##
+                # Specify AWS Secret Access Key file ##
                 secretAccessKey: "secret-access-key"                
 ```
 
@@ -119,19 +119,28 @@ addons:
     values:
       bbtests:
         enabled: true
-      secretConfiguration:
+      clusterSecretStoreConfiguration:
         enabled: true
-        secretList:
+        clusterSecretStoreList:
           - name: "team-b-store"
-            namespace: default
-            source: 
-              provider: aws 
-              service: SecretsManager
-              region: "us-gov-west-1"
+            namespace: "default"
+            labels: ""
+            annotations: ""
+            source:
+              # AWS secrets manager only - request for other services can be added later
+              provider: aws
+              # Specify type of service, i.e., SecretsManager (default)
+              service: "SecretsManager"
+              # Specify the name of the service, secretStoreRef.name
+              serviceName: ""
+              # Specify AWS region, i.e. us-gov-west-1, default is us-gov-west-1
+              region: us-gov-west-1
+              # Secret pull refresh interval.  Default is 1m.
               refreshInterval: "1m"
               auth:
-                authType: "serviceaccount"   
-                # Required: Specify the service account ##
+                # Specify which authentication to use: identity, accesskey, serviceaccount
+                authType: "serviceaccount"
+                # Name of a service account
                 serviceAccount: "my-serviceaccount"                
 ```
 
@@ -147,21 +156,29 @@ addons:
     values:
       bbtests:
         enabled: true
-      secretConfiguration:
+      clusterSecretStoreConfiguration:
         enabled: true
-        secretList:
+        clusterSecretStoreList:
           - name: "team-c-store"
-            namespace: default
-            source: 
-              provider: aws 
-              service: SecretsManager 
-              region: "us-gov-west-1"
+            namespace: "default"
+            labels: ""
+            annotations: ""
+            source:
+              # AWS secrets manager only - request for other services can be added later
+              provider: aws
+              # Specify type of service, i.e., SecretsManager (default)
+              service: "SecretsManager"
+              # Specify the name of the service, secretStoreRef.name
+              serviceName: ""
+              # Specify AWS region, i.e. us-gov-west-1, default is us-gov-west-1
+              region: us-gov-west-1
+              # Secret pull refresh interval.  Default is 1m.
               refreshInterval: "1m"
               auth:
-                ## Specify authType is required: identity ##
-                authType: "identity"   
-                ## Optional: Name of role that defines fine-grained access ##  
-                #role: ""
+                # Specify which authentication to use: identity, accesskey, serviceaccount
+                authType: "identity"
+                # Optional: Name of role that defines fine-grained access
+                role: ""
 ```
 
 For the identity example, please also see [AWS_INTEGRATION.md](https://repo1.dso.mil/big-bang/product/packages/external-secrets/-/blob/main/docs/AWS_INTEGRATION.md?ref_type=heads) and follow the steps in the Identity Authentication Method section to setup the IAM roles and trust relationships.
@@ -188,7 +205,7 @@ The name of this Secrets is engineerlist.
 
 ##### To fetch all data in Secrets engineerlist. 
 
-If neither .Values.secretConfiguration.secretList.source.secrets.secretKeyName.property nor .Values.secretConfiguration.secretList.source.secrets.secretKeyName.version is specified, all data in the Secrets engineerlist will be fetched.
+If neither .Values.externalSecretsConfiguration.secretList.secrets.secretKeyName.property nor .Values.externalSecretsConfiguration.secretList.secrets.secretKeyName.version is specified, all data in the Secrets engineerlist will be fetched.
 
 ```
               secrets:
@@ -201,10 +218,10 @@ If neither .Values.secretConfiguration.secretList.source.secrets.secretKeyName.p
 
 ##### To fetch sliced data in Secret engineerlist:
 
-Use .Values.secretConfiguration.secretList.source.secrets.secretKeyName.property to slice part of Secrets.
+Use .Values.externalSecretsConfiguration.secretList.secrets.secretKeyName.property to slice part of Secrets.
 For example, to fetch "Roger" in engineerlist above, one can specify 'property: friends.1.first'.  If the list "friends" is needed, use 'property: friends'.  
 
-Use .Values.secretConfiguration.secretList.source.secrets.secretKeyName.version to specify the VersionId (uuid) or VersionStage assigned by AWS.  
+Use .Values.externalSecretsConfiguration.secretList.secrets.secretKeyName.version to specify the VersionId (uuid) or VersionStage assigned by AWS.  
 VersionStage can take either AWSCURRENT or AWSPREVIOUS.
 
 ```

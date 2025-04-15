@@ -4,7 +4,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.15.0-bb.0] (2025-03-21)
+## [0.15.0-bb.1] - 2025-04-09
+
+### Changed
+
+- Updated deployment documentation to reflect changes
+- Split clusterSecretStore and secrets creation in the values file
+- Updated waitJob to mount configmap as environment
+- Removed hardcoded clustersecretstore suffix
+
+## [0.15.0-bb.0] - 2025-03-21
 
 ### Changed
 

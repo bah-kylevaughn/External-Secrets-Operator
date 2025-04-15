@@ -118,53 +118,55 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template.
   name: ""
 
-secretConfiguration:
+clusterSecretStoreConfiguration:
   enabled: false
-  secretList:
+  clusterSecretStoreList:
     - name: default
       namespace: ""
       labels: ""
       annotations: ""
-      source:
-        # AWS secrets manager only - request for other services can be added later
-        provider: aws
-        # Specify type of service, i.e., SecretsManager (default)
-        service: "SecretsManager"
-        # Specify the name of the service, secretStoreRef.name
-        serviceName: ""
-        # Specify AWS region, i.e. us-gov-west-1, default is us-gov-west-1
-        region: us-gov-west-1
-        # Secret pull refresh interval.  Default is 1m.
-        refreshInterval: "1m"
+      # -- define types of authentication: ##
+      source: 
+        # -- AWS secrets manager only - other services can be added later ##
+        provider: aws 
+        # -- Specify type of service, i.e., SecretsManager (default) ##
+        service: SecretsManager 
+        # -- Specify AWS region, i.e. us-gov-west-1 (default) ##
+        region: "us-gov-west-1"
+        # -- Secret pull refresh interval.  Default is 1m.
+        refreshInterval: "1m"        
+        # -- Frequency to check for updates ##
         auth:
-          # Specify which authentication to use: identity, accesskey, serviceaccount
-          authType: ""
-          # Optional: Name of role that defines fine-grained access
-          role: ""
-          # Name of accessKeyID and secretAccessKey pair
-          accessKeyName: ""
-          # Specify AWS Access Key ID
+          # -- Specify authType is required: identity, accesskey or serviceaccount ##
+          authType: ""  
+          # -- Name of the accessKeyID and secretAccessKey pair ##
+          accessKeyName: "" 
+          # -- Specify AWS Access Key ID file ##
           accessKeyID: ""
-          # Specify AWS Secret Access Key
-          secretAccessKey: ""
-          # Name of a service account
-          serviceAccount: ""
+          # -- Specify AWS Secret Access Key file ##
+          secretAccessKey: ""   
 
-        secrets:
-          targetName:
-            "" # target/destination secret name
-            # target.creationPolicy default is Owner
-          targetPolicy: ""
-          # This name allows reference by other objects.
-          secretKeyName:
-            # Specify key here
-            key: ""
-            # Key version
-            version: ""
-            # Specify the property of the secret, i.e. username, password
-            property: ""
-            # Optional" metadataPolicy for ExternalSecret, i.e. Fetch
-            metadataPolicy: ""
+externalSecretsConfiguration:
+  enabled: false
+  secretList:
+    - name: secret-1
+      namespace: ""
+      secrets:
+        targetName: "" # -- target/destination secret name
+          # -- target.creationPolicy default is Owner
+        targetPolicy: ""
+        # -- This name allows reference by other objects.
+        secretKeyName:
+          # -- Specify key here
+          key: ""
+          # -- Key version
+          version: ""
+          # -- Specify the property of the secret, i.e. username, password
+          property: ""
+          # -- Optional" metadataPolicy for ExternalSecret, i.e. Fetch
+          metadataPolicy: ""
+
+
 
 rbac:
 # -- Specifies whether role and rolebinding resources should be created.
@@ -662,8 +664,11 @@ bbtests:
   secrets:
     testsecret:
       value: "this is a magic value"
+
 waitJob:
   enabled: true
+  env:
+    EXTERNAL_SECRETS_NAMESPACE: "external-secrets"  
   scripts:
     image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.11
   permissions:
@@ -693,5 +698,3 @@ waitJob:
       - list
       - watch
 
-envVars:
-  EXTERNAL_SECRETS_NAMESPACE: "external-secrets"
