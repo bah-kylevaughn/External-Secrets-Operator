@@ -1,9 +1,39 @@
-istio:
-  enabled: true
-
-networkPolicies:
-  enabled: true
-  controlPlaneCidr: 172.16.0.0/12
-
-bbtests:
-  enabled: true
+#########################
+# Disable Core Packages #
+#########################
+monitoring:
+  enabled: false
+grafana:
+  enabled: false
+neuvector:
+  enabled: false
+loki:
+  enabled: false
+promtail:
+  enabled: false
+tempo:
+  enabled: false
+kyvernoReporter:
+  enabled: false
+kiali:
+  enabled: false
+addons:
+  minioOperator:
+    enabled: false
+########################
+# Required for package #
+########################
+  externalSecrets:
+    enabled: true
+    values:
+    ### Remove this once its enabled in the umbrella test-values.yaml
+      bbtests:
+        enabled: true
+kyvernoPolicies:
+  values:
+    bbtests:
+      enabled: false
+kyverno:
+  values:
+    bbtests:
+      enabled: false
