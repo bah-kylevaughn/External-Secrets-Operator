@@ -431,6 +431,9 @@
             "properties": {},
             "type": "object"
         },
+        "openshiftFinalizers": {
+            "type": "boolean"
+        },
         "podAnnotations": {
             "properties": {},
             "type": "object"
@@ -466,6 +469,9 @@
             "type": "string"
         },
         "processClusterExternalSecret": {
+            "type": "boolean"
+        },
+        "processClusterPushSecret": {
             "type": "boolean"
         },
         "processClusterStore": {
@@ -659,6 +665,9 @@
                                 },
                                 "renewBefore": {
                                     "type": "string"
+                                },
+                                "revisionHistoryLimit": {
+                                    "type": "integer"
                                 }
                             },
                             "type": "object"
