@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.15.1-bb.1] - 2025-04-21
+
+### Added
+
+- Added ESO gluon test scripts in chart/templates/tests/test-script.yaml
+- Added a ESO server test bash script in chart/tests/script/
+
 ## [0.15.1-bb.0] - 2025-04-15
 
 ### Changed

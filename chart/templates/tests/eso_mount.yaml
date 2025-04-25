@@ -18,7 +18,7 @@ spec:
   - name: private-registry
   containers:
     - name: external-secrets-test-secret-mount
-      image: "registry1.dso.mil/ironbank/redhat/ubi/ubi9-minimal:9.3"
+      image: "registry1.dso.mil/ironbank/redhat/ubi/ubi9-minimal:9.5"
       securityContext:
         capabilities:
           drop:

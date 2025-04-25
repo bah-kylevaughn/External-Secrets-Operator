@@ -28,7 +28,7 @@ addons:
     values:
     ### Remove this once its enabled in the umbrella test-values.yaml
       bbtests:
-        enabled: true
+        enabled: true  
 kyvernoPolicies:
   values:
     bbtests:
