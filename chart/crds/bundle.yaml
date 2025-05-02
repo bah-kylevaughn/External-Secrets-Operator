@@ -29,7 +29,7 @@ spec:
         - jsonPath: .status.conditions[?(@.type=="Ready")].status
           name: Ready
           type: string
-      name: v1beta1
+      name: v1
       schema:
         openAPIV3Schema:
           description: ClusterExternalSecret is the Schema for the clusterexternalsecrets API.
@@ -2597,7 +2597,7 @@ spec:
         - jsonPath: .status.conditions[?(@.type=="Ready")].status
           name: Ready
           type: string
-      name: v1beta1
+      name: v1
       schema:
         openAPIV3Schema:
           description: ClusterSecretStore represents a secure external location for storing secrets, which can be referenced as part of `storeRef` fields.
@@ -6915,7 +6915,7 @@ spec:
         - jsonPath: .status.conditions[?(@.type=="Ready")].status
           name: Ready
           type: string
-      name: v1beta1
+      name: v1
       schema:
         openAPIV3Schema:
           description: ExternalSecret is the Schema for the external-secrets API.
@@ -9798,7 +9798,7 @@ spec:
         - jsonPath: .status.conditions[?(@.type=="Ready")].status
           name: Ready
           type: string
-      name: v1beta1
+      name: v1
       schema:
         openAPIV3Schema:
           description: SecretStore represents a secure external location for storing secrets, which can be referenced as part of `storeRef` fields.

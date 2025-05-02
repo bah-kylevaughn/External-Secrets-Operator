@@ -626,6 +626,10 @@
                     "properties": {},
                     "type": "object"
                 },
+                "annotations": {
+                    "properties": {},
+                    "type": "object"
+                },
                 "certCheckInterval": {
                     "type": "string"
                 },
