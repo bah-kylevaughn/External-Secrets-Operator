@@ -28,7 +28,9 @@ addons:
     values:
     ### Remove this once its enabled in the umbrella test-values.yaml
       bbtests:
-        enabled: true  
+        enabled: true
+        scripts:
+          image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
 kyvernoPolicies:
   values:
     bbtests:
