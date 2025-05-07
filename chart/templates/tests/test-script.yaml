@@ -1,30 +1,13 @@
-{{- include "gluon.tests.script-configmap.overrides" (list . "external-secrets-test-script-configmap") }}
-{{- define "external-secrets-test.script-configmap" }}
-metadata:
-  labels:
-    {{ include "external-secrets.labels" . | nindent 4 }}
-{{- end }}
+{{- include "gluon.tests.script-configmap.base" .}}
 ---
-{{- include "gluon.tests.script-runner.overrides" (list . "external-secrets-test-script-runner") -}}
-{{- define "external-secrets-test.script-runner" -}}
-metadata:
-  labels:
-    {{ include "external-secrets.labels" . | nindent 4 }}
-spec:
-  template:
-    spec:
-      serviceAccountName: external-secrets-test
-      containers:
-        - name: eso-test
-          image: registry1.dso.mil/ironbank/redhat/ubi/ubi9-minimal:9.5
-          command: ["/bin/bash", "/scripts/test.sh"]
-          volumeMounts:
-            - name: script
-              mountPath: /scripts
-              readOnly: true
-      volumes: 
-        - name: script
-          configMap:
-            name: external-secrets-test-script-configmap
-      restartPolicy: Never                
-{{- end }}
+{{- include "gluon.tests.script-runner.base" .}}
+  serviceAccountName: "{{ .Chart.Name }}-script-sa"
+---
+{{- include "gluon.tests.script-sa" . }}
+---
+{{- include "gluon.tests.script-role" . }}
+- apiGroups: [""]
+  resources: ["pods", "secrets"]
+  verbs: ["get", "list", "delete"]
+---
+{{- include "gluon.tests.script-rolebinding" . }}

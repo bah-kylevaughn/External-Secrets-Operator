@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.16.1-bb.1] - 2025-05-06
+
+### Changed
+
+- Removed unneeded files for bbtests scripts
+
 ## [0.16.1-bb.0] - 2025-04-28
 ### Changed
 
