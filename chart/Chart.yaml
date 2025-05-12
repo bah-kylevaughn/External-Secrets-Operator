@@ -15,7 +15,7 @@ maintainers:
     email: kellinmcavoy@gmail.com
 dependencies:
   - name: gluon
-    version: "0.5.17"
+    version: "0.5.19"
     repository: "oci://registry1.dso.mil/bigbang"
 annotations:
   bigbang.dev/maintenanceTrack: bb_integrated
