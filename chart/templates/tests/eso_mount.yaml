@@ -8,7 +8,7 @@ metadata:
     sidecar.istio.io/inject: 'false' 
   annotations:
     "helm.sh/hook": test
-    "helm.sh/hook-weight": "20000"
+    "helm.sh/hook-weight": "5"
 spec:
   securityContext:
     runAsUser: 1001

@@ -643,9 +643,7 @@ networkPolicies:
   additionalPolicies: []
 
 bbtests:
-  enabled: true
-  scripts:
-    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.31.7 
+  enabled: false
   # This is all data for the testing harnesses and users shouldn't mess with it.  
   namespace: external-secrets
   scripts: 
@@ -653,18 +651,7 @@ bbtests:
   secretstore:
     name: external-secrets-test-store
   serviceaccount:
-    name: external-secrets-test
-  rolebinding:
-    name: external-secrets-test-read-secrets
-  role:
-    name: external-secrets-reader
-    rules:   
-      - apiGroups: [""]
-        resources: ["secrets"]
-        verbs: ["get", "watch", "list"]
-      - apiGroups: [""]
-        resources: ["SelfSubjectRulesReview"]
-        verbs: ["create"]
+    name: external-secrets-script-sa
   secrets:
     testsecret:
       value: "this is a magic value"
