@@ -4,6 +4,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.16.2-bb.0] - 2025-05-06
+
+### Changed
+
+- Updated helm-chart to 0.16.2
+- Updated gluon 0.5.15 -> 0.5.17
+- Updated registry1.dso.mil/ironbank/opensource/kubernetes/kubectl (source) v1.32.3 -> v1.32.4
+
 ## [0.16.1-bb.1] - 2025-05-06
 
 ### Changed
