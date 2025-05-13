@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # external-secrets
 
-![Version: 0.16.1-bb.1](https://img.shields.io/badge/Version-0.16.1--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.16.1](https://img.shields.io/badge/AppVersion-v0.16.1-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.16.2-bb.0](https://img.shields.io/badge/Version-0.16.2--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.16.2](https://img.shields.io/badge/AppVersion-v0.16.2-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -120,6 +120,8 @@ helm install external-secrets chart/
 | externalSecretsConfiguration.secretList[0].secrets.secretKeyName.metadataPolicy | string | `""` | Optional" metadataPolicy for ExternalSecret, i.e. Fetch |
 | rbac.create | bool | `true` | Specifies whether role and rolebinding resources should be created. |
 | rbac.servicebindings.create | bool | `true` | Specifies whether a clusterrole to give servicebindings read access should be created. |
+| rbac.aggregateToView | bool | `true` | Specifies whether permissions are aggregated to the view ClusterRole |
+| rbac.aggregateToEdit | bool | `true` | Specifies whether permissions are aggregated to the edit ClusterRole |
 | extraEnv | list | `[]` |  |
 | extraArgs | object | `{}` |  |
 | extraVolumes | list | `[]` |  |
@@ -154,6 +156,10 @@ helm install external-secrets chart/
 | metrics.service.enabled | bool | `false` | Enable if you use another monitoring tool than Prometheus to scrape the metrics |
 | metrics.service.port | int | `8080` | Metrics service port to scrape |
 | metrics.service.annotations | object | `{}` | Additional service annotations |
+| grafanaDashboard.enabled | bool | `false` | If true creates a Grafana dashboard. |
+| grafanaDashboard.sidecarLabel | string | `"grafana_dashboard"` | Label that ConfigMaps should have to be loaded as dashboards. |
+| grafanaDashboard.sidecarLabelValue | string | `"1"` | Label value that ConfigMaps should have to be loaded as dashboards. |
+| grafanaDashboard.annotations | object | `{}` | Annotations that ConfigMaps can have to get configured in Grafana, See: sidecar.dashboards.folderAnnotation for specifying the dashboard folder. https://github.com/grafana/helm-charts/tree/main/charts/grafana |
 | nodeSelector | object | `{}` |  |
 | tolerations | list | `[]` |  |
 | topologySpreadConstraints | list | `[]` |  |
@@ -294,7 +300,6 @@ helm install external-secrets chart/
 | bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.31.7"` |  |
 | bbtests.namespace | string | `"external-secrets"` |  |
 | bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/big-bang/base:2.1.0"` |  |
-| bbtests.scripts.env.EXTERNAL_SECRETS_NAMESPACE | string | `"external-secrets"` |  |
 | bbtests.secretstore.name | string | `"external-secrets-test-store"` |  |
 | bbtests.serviceaccount.name | string | `"external-secrets-test"` |  |
 | bbtests.rolebinding.name | string | `"external-secrets-test-read-secrets"` |  |
@@ -309,7 +314,7 @@ helm install external-secrets chart/
 | bbtests.role.rules[1].verbs[0] | string | `"create"` |  |
 | bbtests.secrets.testsecret.value | string | `"this is a magic value"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.3"` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.4"` |  |
 | waitJob.permissions.apiGroups[0] | string | `"external-secrets.io"` |  |
 | waitJob.permissions.apiGroups[1] | string | `"generators.external-secrets.io"` |  |
 | waitJob.permissions.apiGroups[2] | string | `""` |  |

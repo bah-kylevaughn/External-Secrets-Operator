@@ -353,6 +353,24 @@
             },
             "type": "object"
         },
+        "grafanaDashboard": {
+            "properties": {
+                "annotations": {
+                    "properties": {},
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "sidecarLabel": {
+                    "type": "string"
+                },
+                "sidecarLabelValue": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "hostNetwork": {
             "type": "boolean"
         },
@@ -482,6 +500,12 @@
         },
         "rbac": {
             "properties": {
+                "aggregateToEdit": {
+                    "type": "boolean"
+                },
+                "aggregateToView": {
+                    "type": "boolean"
+                },
                 "create": {
                     "type": "boolean"
                 },
