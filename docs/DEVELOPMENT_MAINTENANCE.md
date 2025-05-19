@@ -1,4 +1,4 @@
-# Upgrading to a new version
+# Upgrading this Package
 
 The below details the steps required to update to a new version of the External Secrets package.
 
@@ -22,6 +22,60 @@ The below details the steps required to update to a new version of the External 
 8. Open an MR in "Draft" status and validate that CI passes. This will perform a number of smoke tests against the package, but it is good to manually deploy to test some things that CI doesn't. Follow the steps below for manual testing.
 
 9. Once all manual testing is complete take your MR out of "Draft" status and add the review label.
+
+# How to test the upgrade
+
+## Cluster setup
+
+Always make sure your local bigbang repo is current before deploying.
+
+1. Export your Ironbank/Harbor credentials (this can be done in your ~/.bashrc or ~/.zshrc file if desired). These specific variables are expected by the k3d-dev.sh script when deploying metallb, and are referenced in other commands for consistency:
+
+```
+export REGISTRY_USERNAME='<your_username>'
+export REGISTRY_PASSWORD='<your_password>'
+```
+2. Export the path to your local bigbang repo (without a trailing /):
+Note that wrapping your file path in quotes when exporting will break expansion of ~.
+```
+export BIGBANG_REPO_DIR=<absolute_path_to_local_bigbang_repo>
+```
+e.g.
+```
+export BIGBANG_REPO_DIR=~/repos/bigbang
+```
+3. Run the k3d_dev.sh script to deploy a dev cluster (-a flag required if deploying a local Keycloak):
+```
+"${BIGBANG_REPO_DIR}/docs/assets/scripts/developer/k3d-dev.sh"
+```
+4. Export your kubeconfig:
+```
+export KUBECONFIG=~/.kube/<your_kubeconfig_file>
+```
+e.g.
+```
+export KUBECONFIG=~/.kube/Sam.Sarnowski-dev-config
+```
+5. Deploy flux to your cluster:
+```
+"${BIGBANG_REPO_DIR}/scripts/install_flux.sh -u ${REGISTRY_USERNAME} -p ${REGISTRY_PASSWORD}"
+
+## Deploy Bigbang External-secrets
+
+```
+  helm upgrade -i bigbang ${BIGBANG_REPO_DIR}/chart/ -n bigbang --create-namespace \
+  --set registryCredentials.username=${REGISTRY_USERNAME} --set registryCredentials.password=${REGISTRY_PASSWORD} \
+  -f https://repo1.dso.mil/big-bang/bigbang/-/raw/master/tests/test-values.yaml \
+  -f https://repo1.dso.mil/big-bang/bigbang/-/raw/master/chart/ingress-certs.yaml \
+  -f docs/dev-overrides/minimal.yaml \
+  -f docs/dev-overrides/external-secrets-testing.yaml
+  ```
+
+## Big Bang Integration Testing
+
+As part of your MR that modifies bigbang packages, you should modify the bigbang [bigbang/tests/test-values.yaml](https://repo1.dso.mil/big-bang/bigbang/-/blob/master/tests/test-values.yaml?ref_type=heads) against your branch for the CI/CD MR testing by enabling your packages.
+
+To do this, at a minimum, you will need to follow the instructions at [bigbang/docs/developer/test-package-against-bb.md](https://repo1.dso.mil/big-bang/bigbang/-/blob/master/docs/developer/test-package-against-bb.md?ref_type=heads) with changes for externalSecrets enabled (the below is a reference, actual changes could be more depending on what changes where made to externalSecrets in the pakcage MR).
 
 # Testing for updates
 
