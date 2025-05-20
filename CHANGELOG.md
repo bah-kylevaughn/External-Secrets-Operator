@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.16.2-bb.1] - 2025-05-20
+
+### Changed
+
+- Updated CRDs to match upstream 0.16.2
+
 ## [0.16.2-bb.0] - 2025-05-06
 
 ### Changed
