@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # external-secrets
 
-![Version: 0.16.2-bb.0](https://img.shields.io/badge/Version-0.16.2--bb.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.16.2](https://img.shields.io/badge/AppVersion-v0.16.2-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.16.2-bb.1](https://img.shields.io/badge/Version-0.16.2--bb.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.16.2](https://img.shields.io/badge/AppVersion-v0.16.2-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 External secret management for Kubernetes
 
@@ -296,22 +296,11 @@ helm install external-secrets chart/
 | networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
 | networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
 | networkPolicies.additionalPolicies | list | `[]` |  |
-| bbtests.enabled | bool | `true` |  |
-| bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.31.7"` |  |
+| bbtests.enabled | bool | `false` |  |
 | bbtests.namespace | string | `"external-secrets"` |  |
 | bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/big-bang/base:2.1.0"` |  |
 | bbtests.secretstore.name | string | `"external-secrets-test-store"` |  |
-| bbtests.serviceaccount.name | string | `"external-secrets-test"` |  |
-| bbtests.rolebinding.name | string | `"external-secrets-test-read-secrets"` |  |
-| bbtests.role.name | string | `"external-secrets-reader"` |  |
-| bbtests.role.rules[0].apiGroups[0] | string | `""` |  |
-| bbtests.role.rules[0].resources[0] | string | `"secrets"` |  |
-| bbtests.role.rules[0].verbs[0] | string | `"get"` |  |
-| bbtests.role.rules[0].verbs[1] | string | `"watch"` |  |
-| bbtests.role.rules[0].verbs[2] | string | `"list"` |  |
-| bbtests.role.rules[1].apiGroups[0] | string | `""` |  |
-| bbtests.role.rules[1].resources[0] | string | `"SelfSubjectRulesReview"` |  |
-| bbtests.role.rules[1].verbs[0] | string | `"create"` |  |
+| bbtests.serviceaccount.name | string | `"external-secrets-script-sa"` |  |
 | bbtests.secrets.testsecret.value | string | `"this is a magic value"` |  |
 | waitJob.enabled | bool | `true` |  |
 | waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.4"` |  |
